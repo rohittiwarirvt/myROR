@@ -10,13 +10,152 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170513065147) do
+ActiveRecord::Schema.define(version: 20170524004140) do
+
+  create_table "answers", force: :cascade do |t|
+    t.string   "option"
+    t.string   "image"
+    t.boolean  "correct_answer"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "questions_id"
+    t.index ["questions_id"], name: "index_answers_on_questions_id"
+  end
+
+  create_table "assessments", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "assessment_type"
+    t.boolean  "passing_criteria"
+    t.float    "passing_percentage",            default: 0.0
+    t.integer  "number_of_displayed_questions"
+    t.boolean  "upfront"
+    t.boolean  "additional_text"
+    t.boolean  "details_page"
+    t.boolean  "randomize"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.integer  "course_sections_id"
+    t.index ["course_sections_id"], name: "index_assessments_on_course_sections_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "certificates", force: :cascade do |t|
+    t.string "name"
+    t.string "file"
+    t.text   "description"
+  end
+
+  create_table "course_sections", force: :cascade do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.integer  "course_order"
+    t.integer  "chapter_order"
+    t.boolean  "content",       default: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "versions_id"
+    t.index ["versions_id"], name: "index_course_sections_on_versions_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "custom_content", force: :cascade do |t|
+    t.string   "title"
+    t.string   "zip"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "course_sections_id"
+    t.index ["course_sections_id"], name: "index_custom_content_on_course_sections_id"
+  end
+
+  create_table "evaluation_questions", force: :cascade do |t|
+    t.string   "content"
+    t.boolean  "active"
+    t.integer  "course_order"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "version_id"
+    t.index ["version_id"], name: "index_evaluation_questions_on_version_id"
+  end
+
+  create_table "interactive_slides", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "type"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "versions_id"
+    t.integer  "course_sections_id"
+    t.index ["course_sections_id"], name: "index_interactive_slides_on_course_sections_id"
+    t.index ["versions_id"], name: "index_interactive_slides_on_versions_id"
+  end
+
+  create_table "interactive_slides_informations", force: :cascade do |t|
+    t.string   "image"
+    t.string   "title"
+    t.text     "description"
+    t.string   "type"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "interactive_slides_id"
+    t.index ["interactive_slides_id"], name: "index_interactive_slides_informations_on_interactive_slides_id"
+  end
 
   create_table "permissions", force: :cascade do |t|
     t.string   "permission_name"
     t.string   "title"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "presentations", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "course_sections_id"
+    t.index ["course_sections_id"], name: "index_presentations_on_course_sections_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text     "title"
+    t.text     "additional_text"
+    t.integer  "question_order"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "question_categories_id"
+    t.integer  "assessments_id"
+    t.index ["assessments_id"], name: "index_questions_on_assessments_id"
+    t.index ["question_categories_id"], name: "index_questions_on_question_categories_id"
+  end
+
+  create_table "questions_categories", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "resources", force: :cascade do |t|
+    t.string   "title"
+    t.string   "file"
+    t.string   "type"
+    t.string   "description"
+    t.text     "content"
+    t.integer  "chapter_order"
+    t.integer  "version_order"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "course_sections_id"
+    t.integer  "version_id"
+    t.index ["course_sections_id"], name: "index_resources_on_course_sections_id"
+    t.index ["version_id"], name: "index_resources_on_version_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -31,6 +170,37 @@ ActiveRecord::Schema.define(version: 20170513065147) do
     t.integer "permission_id"
     t.index ["permission_id"], name: "index_roles_permissions_on_permission_id"
     t.index ["role_id"], name: "index_roles_permissions_on_role_id"
+  end
+
+  create_table "slide_settings", force: :cascade do |t|
+    t.string   "background_color", default: "#fffff"
+    t.string   "background_image"
+    t.string   "transition"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "slides_id"
+    t.index ["slides_id"], name: "index_slide_settings_on_slides_id"
+  end
+
+  create_table "slides", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "number_of_columns", limit: 2
+    t.integer  "slides_order"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "presentations_id"
+    t.index ["presentations_id"], name: "index_slides_on_presentations_id"
+  end
+
+  create_table "slides_contents", force: :cascade do |t|
+    t.text     "content"
+    t.string   "orientation"
+    t.string   "file_url"
+    t.string   "type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "slides_id"
+    t.index ["slides_id"], name: "index_slides_contents_on_slides_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,6 +227,25 @@ ActiveRecord::Schema.define(version: 20170513065147) do
     t.integer "user_id"
     t.index ["role_id"], name: "index_users_roles_on_role_id"
     t.index ["user_id"], name: "index_users_roles_on_user_id"
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "version",       default: "0"
+    t.text     "description",                 null: false
+    t.string   "image"
+    t.string   "video"
+    t.integer  "expiry"
+    t.boolean  "price"
+    t.string   "default_image"
+    t.integer  "prerequisite"
+    t.boolean  "editable"
+    t.boolean  "published"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "courses_id"
+    t.integer  "categories_id"
+    t.index ["categories_id"], name: "index_versions_on_categories_id"
+    t.index ["courses_id"], name: "index_versions_on_courses_id"
   end
 
 end
