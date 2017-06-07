@@ -69,6 +69,13 @@ ActiveRecord::Schema.define(version: 20170524004140) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "courses_certificates", id: false, force: :cascade do |t|
+    t.integer "certificate_id"
+    t.integer "course_id"
+    t.index ["certificate_id"], name: "index_courses_certificates_on_certificate_id"
+    t.index ["course_id"], name: "index_courses_certificates_on_course_id"
+  end
+
   create_table "custom_content", force: :cascade do |t|
     t.string   "title"
     t.string   "zip"
