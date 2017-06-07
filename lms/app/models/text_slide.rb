@@ -1,0 +1,3 @@
+class TextSlide < InteractiveSlideInformation
+
+end

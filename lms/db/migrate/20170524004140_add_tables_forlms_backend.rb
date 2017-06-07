@@ -33,18 +33,22 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
       t.integer :course_order
       t.integer :chapter_order
       t.boolean :content, default: false
-      t.timestamps  
+      t.timestamps
     end
 
     add_reference :course_sections, :versions, foreign_key: true
-    
+
     #certificate
     create_table :certificates do |t|
       t.string :name
       t.string :file
       t.text   :description
     end
-    
+
+    create_table :courses_certificates, id: false do |t|
+        t.belongs_to :certificate, index: true
+        t.belongs_to :course, index: true
+    end
     #certificates_courses
 
     #interactive_slides
@@ -57,14 +61,14 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
 
     add_reference :interactive_slides, :versions, foreign_key: true
     add_reference :interactive_slides, :course_sections, foreign_key: true
-    
+
     #interactive_slides_informations
     create_table :interactive_slides_informations do |t|
       t.string   :image
       t.string   :title
       t.text     :description
       t.string   :type
-      t.timestamps  
+      t.timestamps
     end
 
     add_reference :interactive_slides_informations, :interactive_slides, foreign_key: true
@@ -73,7 +77,7 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
     create_table :custom_content do |t|
       t.string    :title
       t.string    :zip
-      t.timestamps  
+      t.timestamps
     end
 
     add_reference :custom_content, :course_sections, foreign_key: true
@@ -96,7 +100,7 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
     #presentations
     create_table :presentations do |t|
       t.string    :title
-      t.timestamps  
+      t.timestamps
     end
 
     add_reference :presentations, :course_sections, foreign_key: true
@@ -105,22 +109,22 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
       t.string    :title
       t.integer   :number_of_columns, limit: 2
       t.integer   :slides_order
-      t.timestamps    
+      t.timestamps
     end
 
     add_reference :slides, :presentations, foreign_key: true
-    
+
     #slide_contents
     create_table :slides_contents do |t|
       t.text    :content
       t.string  :orientation
       t.string  :file_url
       t.string  :type
-      t.timestamps  
+      t.timestamps
     end
 
     add_reference :slides_contents, :slides, foreign_key: true
-    
+
     #slide_settings
     create_table :slide_settings do |t|
       t.string :background_color , default: "#fffff"
@@ -130,7 +134,7 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
     end
 
     add_reference :slide_settings, :slides, foreign_key: true
-    
+
     # assessments
 
     create_table :assessments do |t|
@@ -152,7 +156,7 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
     #questions_categories
     create_table :questions_categories do |t|
       t.string  :name
-    end    
+    end
     #questions
     create_table  :questions do |t|
       t.text   :title
@@ -163,7 +167,7 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
 
     add_reference :questions, :question_categories, foreign_key: true
     add_reference :questions, :assessments, foreign_key: true
-    
+
     # evaluation questions
 
     create_table :evaluation_questions do |t|
@@ -178,12 +182,12 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
     # answers  end
 
     create_table :answers do |t|
-      t.string    :option 
+      t.string    :option
       t.string    :image
       t.boolean   :correct_answer
       t.timestamps
     end
     add_reference :answers, :questions, foreign_key: true
-      
+
   end
 end
