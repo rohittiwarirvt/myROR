@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524004140) do
+ActiveRecord::Schema.define(version: 20170610152615) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "option"
@@ -210,6 +210,29 @@ ActiveRecord::Schema.define(version: 20170524004140) do
     t.index ["slides_id"], name: "index_slides_contents_on_slides_id"
   end
 
+  create_table "test1", force: :cascade do |t|
+    t.string   "title"
+    t.string   "image"
+    t.string   "video"
+    t.integer  "roll_no"
+    t.float    "price"
+    t.boolean  "correct_answer"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "test2", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "image"
+    t.boolean  "gender"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.datetime "birthdate"
+    t.integer  "test1_id"
+    t.index ["test1_id"], name: "index_test2_on_test1_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -249,10 +272,10 @@ ActiveRecord::Schema.define(version: 20170524004140) do
     t.boolean  "published"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.integer  "courses_id"
-    t.integer  "categories_id"
-    t.index ["categories_id"], name: "index_versions_on_categories_id"
-    t.index ["courses_id"], name: "index_versions_on_courses_id"
+    t.integer  "course_id"
+    t.integer  "category_id"
+    t.index ["category_id"], name: "index_versions_on_category_id"
+    t.index ["course_id"], name: "index_versions_on_course_id"
   end
 
 end

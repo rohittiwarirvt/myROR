@@ -24,8 +24,8 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    add_reference :versions, :courses, foreign_key: true
-    add_reference :versions, :categories, foreign_key: true
+    add_reference :versions, :course, foreign_key: true
+    add_reference :versions, :category, foreign_key: true
 
     create_table :course_sections do |t|
       t.integer :parent_id

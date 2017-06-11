@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'application#home'
 
   resources :courses
+  resources :tests
 
   get '/home', to: 'application#home', as: 'home'
   get '/secret', to: 'application#secret', as: 'secret'
