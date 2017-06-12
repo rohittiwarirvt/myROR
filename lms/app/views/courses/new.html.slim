@@ -1,49 +1,57 @@
-= form_for @course do |f|
-  h3 Basic Course Creation
-  = f.label(:name_label, "Course Title")
-  = f.text_field :name, placeholder: "Course Title", maxlength: '50', class: 'form-control required'
+= form_for @course, html:{ class: "form-horizontal col-md-8" } do |f|
+  - if @course.errors.any?
+    #error_explanation.error
+    ul
+      - @course.errors.each do |key, message|
+        li= message
+  .form-group
+    = f.label(:name_label, "Course Title", class: 'col-md-2')
+    .col-md-6
+      = f.text_field :name, placeholder: "Course Title", maxlength: '50', class: 'form-control '
 
-  =f.fields_for @versions do |v|
-    = v.label(:short_description)
-    = v.text_area(:short_description, placeholder :"Insert Short Descrpiption")
-
-    = v.label(:description_label)
-    = v.text_area(:description)
-	
-	= v.label(:category_label)
-    = v.collection_select(:category_id, @categories, :id, :name)
-
-   	= text_field_tag 'category_name', nil, placeholder: : "Add Category"
-   	= link_to 'Add', 'javascript::void(0)'
-
-   	= v.label(:image_label, "Add Image")
-   	= v.file_field :image
-   	= v.hidden_field :image_cache
-
-   	= v.label(:video, "Add Image")
-   	= v.file_field :video
-
-   	= v.label(:role_id)
-   	- checked = false
-	= v.check_box_tag 'role_id[]', role.id, false, id: "role_id#{role.id}"
-
-	= v.label(:expiry)
-	= v.select(:expiry, expiry_select_options)
-
-	= v.radio_button :price , true
-	= v.label(:price, "Price Paid", value: true)
-	= v.radio_button :price, false
-	= v.label(:price, "Price Not Paid", value: false)
-
-	= v.label( :amout, "Form amount")
-	= v.text_field :amount, placeholder: "Insert the amount for field"
-
-	= v.label :pre_requisite_field, "IS proere"
-	= v.radio_button :prerequisite, 0
-	= v.label(:prerequisite, "Pre Requisite None")
-	= v.radio_button :prerequisite, 1
-	= v.label(:prerequisite, "Pre REquire All")
-	= v.radio_button :prereuisite, 2
-	= v.label(:prerequisite, "Pre requisite only Chapters ")
+  = f.fields_for :versions, @version do |v|
+    .form-group
+      = v.label(:short_description,class: 'col-md-2')
+      .col-md-6
+        = v.text_area :short_description, placeholder: "Insert Short Descrpiption", class: 'form-control'
+    .form-group
+      = v.label(:description)
+      = v.text_area(:description, class: 'form-control')
+    .form-group
+      = v.label(:category_label)
+      = v.collection_select(:category_id, @categories, :id, :name)
+    .form-group
+   	  = text_field_tag 'category_name', nil, placeholder: "Add Category",class: 'form-control'
+   	  = link_to 'Add', 'javascript::void(0)'
+    .form-group
+   	  = v.label(:image, "Add Image")
+   	  = v.file_field :image, class: 'form-control'
+   	  //= v.hidden_field :image_cache
+    .form-group
+   	  = v.label(:video, "Add Video")
+   	  = v.file_field :video, class: 'form-control'
+    .form-group
+   	  = v.label(:role_id)
+   	  - checked = false
+	     //= v.check_box_tag 'role_id[]', role.id, false, id: "role_id#{role.id}"
+    .form-group
+	     = v.label(:expiry)
+	     = v.select(:expiry, expiry_select_options)
+    .form-group
+      = v.radio_button :price , true
+      = v.label(:price, "Price Paid", value: true)
+      = v.radio_button :price, false
+      = v.label(:price, "Price Not Paid", value: false)
+    .form-group
+      = v.label( :amount, "Form amount")
+      = v.text_field :amount, placeholder: "Insert the amount for field", class: 'form-control'
+    .form-group
+      = v.label :pre_requisite_field, "IS proere"
+      = v.radio_button :prerequisite, 0
+      = v.label(:prerequisite, "Pre Requisite None")
+      = v.radio_button :prerequisite, 1
+      = v.label(:prerequisite, "Pre REquire All")
+      = v.radio_button :prerequisite, 2
+      = v.label(:prerequisite, "Pre requisite only Chapters ")
 
   = f.submit('submit', id: 'submit', class: 'btn btn-primary ')

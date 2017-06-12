@@ -7,11 +7,13 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
 
     create_table :versions do |t|
       t.string  :version, default: "0"
+      t.text    :short_description
       t.text    :description, null: false
       t.string  :image
       t.string  :video
       t.integer :expiry
       t.boolean :price
+      t.decimal :amount, precision: 5, scale: 2
       t.string  :default_image
       t.integer :prerequisite
       t.boolean :editable
@@ -42,6 +44,7 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
     create_table :certificates do |t|
       t.string :name
       t.string :file
+      t.text   :short_description
       t.text   :description
     end
 

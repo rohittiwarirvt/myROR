@@ -9,8 +9,10 @@ class CoursesController < ApplicationController
   end
 
   def new
+    #debugger
     @course = Course.new
     @version = @course.versions.build
+
   end
 
   def create
