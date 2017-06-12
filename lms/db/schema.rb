@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20170610152615) do
   create_table "certificates", force: :cascade do |t|
     t.string "name"
     t.string "file"
+    t.text   "short_description"
     t.text   "description"
   end
 
@@ -260,18 +261,20 @@ ActiveRecord::Schema.define(version: 20170610152615) do
   end
 
   create_table "versions", force: :cascade do |t|
-    t.string   "version",       default: "0"
-    t.text     "description",                 null: false
+    t.string   "version",                                   default: "0"
+    t.text     "short_description"
+    t.text     "description",                                             null: false
     t.string   "image"
     t.string   "video"
     t.integer  "expiry"
     t.boolean  "price"
+    t.decimal  "amount",            precision: 5, scale: 2
     t.string   "default_image"
     t.integer  "prerequisite"
     t.boolean  "editable"
     t.boolean  "published"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
     t.integer  "course_id"
     t.integer  "category_id"
     t.index ["category_id"], name: "index_versions_on_category_id"
