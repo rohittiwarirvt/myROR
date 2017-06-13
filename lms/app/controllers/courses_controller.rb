@@ -36,7 +36,7 @@ class CoursesController < ApplicationController
   end
 
   def version_roles
-    @roles = Role.order('name')
+    @roles = Role.order('title')
   end
 
   def set_course
