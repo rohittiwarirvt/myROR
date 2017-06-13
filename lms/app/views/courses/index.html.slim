@@ -1,0 +1,17 @@
+.section.course-listing
+  .sub-title-wrap
+    h2 Course Listing
+  .result
+    table.table.table-stripped.table-bordered.table-condensed.table-hover
+    thead
+      tr
+        th Course Name
+        th Action
+    tbody
+    - @courses.each do |course|
+      tr
+        td = course.title
+        td.action
+          =link_to "Show", course_path(course), class: "btn btn-sm btn-default"
+          =link_to "Edit", edit_course_path(course), class: "btn btn-sm btn-default"
+          =link_to "Delete", course_path(course), data: { confirm: "Are you shure you want to delete"}, method: :delete, class: "btn btn-sm btn-danger"
