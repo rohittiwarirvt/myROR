@@ -15,43 +15,65 @@
       .col-md-6
         = v.text_area :short_description, placeholder: "Insert Short Descrpiption", class: 'form-control'
     .form-group
-      = v.label(:description)
-      = v.text_area(:description, class: 'form-control')
+      = v.label(:description,class: 'col-md-2')
+      .col-md-6
+        = v.text_area(:description, class: 'form-control')
     .form-group
-      = v.label(:category_label)
-      = v.collection_select(:category_id, @categories, :id, :name)
+      = v.label(:category_label,class: 'col-md-2')
+      .col-md-6
+        = v.collection_select(:category_id, @categories, :id, :name, {include_blank: localize('form.select_category')},class: 'form-control')
     .form-group
-   	  = text_field_tag 'category_name', nil, placeholder: "Add Category",class: 'form-control'
-   	  = link_to 'Add', 'javascript::void(0)'
+   	  .col-md-5.col-md-offset-2
+        = text_field_tag 'category_name', nil, placeholder: "Add Category",class: 'form-control'
+   	  .col-md-2
+        = link_to 'Add', 'javascript::void(0)',class: 'btn btn-link'
     .form-group
-   	  = v.label(:image, "Add Image")
-   	  = v.file_field :image, class: 'form-control'
-   	  //= v.hidden_field :image_cache
+   	  = v.label(:image, "Add Image",class: 'col-md-2')
+   	  .col-md-6
+        = v.file_field :image, class: 'form-control'
+   	    = v.hidden_field :image_cache
     .form-group
-   	  = v.label(:video, "Add Video")
-   	  = v.file_field :video, class: 'form-control'
+   	  = v.label(:video, "Add Video",class: 'col-md-2')
+   	  .col-md-6
+        = v.file_field :video, class: 'form-control'
     .form-group
-   	  = v.label(:role_id)
-   	  - checked = false
-	     //= v.check_box_tag 'role_id[]', role.id, false, id: "role_id#{role.id}"
+   	  = v.label(:role_id, "role",class: 'col-md-2')
+      .checkbox.col-md-6
+        - selected_user_roles = user_role.blank? ? '' : user_role
+        - @roles.each do | role|
+          - checked = false
+          - checked = true if selected_user_roles.present? && (selected_user_roles.include? role.id)
+          = label :role_id, role.id
+            = check_box_tag 'role_id[]', role.id, checked, id: "role_id_#{role.id}"
+            =role.title
     .form-group
-	     = v.label(:expiry)
-	     = v.select(:expiry, expiry_select_options)
+       = v.label(:expiry,class: 'col-md-2')
+       .col-md-6
+         = v.select(:expiry, expiry_select_options,{include_blank: "Select Expiry Date"}, class: "form-control")
     .form-group
-      = v.radio_button :price , true
-      = v.label(:price, "Price Paid", value: true)
-      = v.radio_button :price, false
-      = v.label(:price, "Price Not Paid", value: false)
+      span.field-label= v.label(:price_label,'Form Price',class: 'col-md-2')
+      .col-md-6
+        .radio
+          = v.radio_button :price , true
+          = v.label(:price, "Price Paid", value: true)
+        .radio
+          = v.radio_button :price, false
+          = v.label(:price, "Price Not Paid", value: false)
     .form-group
-      = v.label( :amount, "Form amount")
-      = v.text_field :amount, placeholder: "Insert the amount for field", class: 'form-control'
+      = v.label( :amount, "Form amount",class: 'col-md-2')
+      .col-md-6
+        = v.text_field :amount, placeholder: "Insert the amount for field", class: 'form-control col-md-2'
     .form-group
-      = v.label :pre_requisite_field, "IS proere"
-      = v.radio_button :prerequisite, 0
-      = v.label(:prerequisite, "Pre Requisite None")
-      = v.radio_button :prerequisite, 1
-      = v.label(:prerequisite, "Pre REquire All")
-      = v.radio_button :prerequisite, 2
-      = v.label(:prerequisite, "Pre requisite only Chapters ")
+      span.field-label= v.label :pre_requisite_field, "IS proere",class: 'col-md-2'
+      .col-md-6
+        .radio
+          = v.radio_button :prerequisite, 0
+          = v.label(:prerequisite, "Pre Requisite None")
+        .radio
+          = v.radio_button :prerequisite, 1
+          = v.label(:prerequisite, "Pre REquire All")
+        .radio
+          = v.radio_button :prerequisite, 2
+          = v.label(:prerequisite, "Pre requisite only Chapters ")
 
   = f.submit('submit', id: 'submit', class: 'btn btn-primary ')

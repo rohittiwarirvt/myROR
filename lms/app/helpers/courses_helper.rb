@@ -5,4 +5,14 @@ module CoursesHelper
     end
     DEFAULT_EXPIRY
   end
+
+  def user_role
+    version_roles = []
+    unless version_roles.blank?
+      @version_roles.each do |user_role|
+        version_roles.push user_role.role_id
+      end
+    end
+    version_roles
+  end
 end

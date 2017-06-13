@@ -260,6 +260,13 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  create_table "version_roles", id: false, force: :cascade do |t|
+    t.integer "role_id"
+    t.integer "version_id"
+    t.index ["role_id"], name: "index_version_roles_on_role_id"
+    t.index ["version_id"], name: "index_version_roles_on_version_id"
+  end
+
   create_table "versions", force: :cascade do |t|
     t.string   "version",                                   default: "0"
     t.text     "short_description"

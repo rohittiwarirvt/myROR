@@ -1,0 +1,12 @@
+en:
+  courses:
+    basic_information: "Basic Information"
+    error_message: "Something went wrong"
+    form:
+      title: "Course Name"
+      select_category: "Select A Category"
+    edit_form: "Edit Course"
+    action: "Action"
+    show: "Show"
+    add_course: "Add Course"
+    course_listing: "Course Listing"
