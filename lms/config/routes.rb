@@ -3,7 +3,14 @@ Rails.application.routes.draw do
   root to: 'application#home'
 
   resources :courses
-  resources :tests
+  resources :versions do
+    member do
+      get :editable
+      put :publish
+      get :preview
+      get :syllabus, action: :show, version_view: 'Syllabus'
+    end
+  end
 
   get '/home', to: 'application#home', as: 'home'
   get '/secret', to: 'application#secret', as: 'secret'

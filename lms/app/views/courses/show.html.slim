@@ -1,0 +1,9 @@
+section.show-course
+  p#notice= notice
+  p
+    strong "Show"
+      span :
+    = @course.title
+  .actions
+    = link_to "Edit", edit_course_path(@course), class: "btn btn-primary"
+    = link_to "Cancel", course_path
