@@ -16,11 +16,9 @@ class CoursesController < ApplicationController
   end
 
   def create
-    debugger
     @course = Course.new(course_params)
-
-    if @course.save
-      @course.versions.version_roles.build()
+    debugger
+    if @course.save && VersionRole.create(version_user_roles_params)
       set_flash_message :success, :success
       redirect_to @course
     else
@@ -51,6 +49,7 @@ class CoursesController < ApplicationController
   end
 
   def version_roles
+    #@user_role_ids ||= ''
     @roles = Role.order('title')
   end
 
@@ -62,6 +61,19 @@ class CoursesController < ApplicationController
     @categories = Category.order('name')
   end
 
+  def version_user_roles_params
+    version_user_roles = []
+    if params[:role_id].present?
+      params[:role_id].each do |role_id|
+        version_role_hash = {
+          role_id: role_id,
+          version_id: @course.versions.last.id
+        }
+        version_user_roles.push(version_role_hash)
+      end
+    end
+    version_user_roles
+  end
 
   private
     def course_params
@@ -73,6 +85,8 @@ class CoursesController < ApplicationController
     def role_params
       params.fetch(:role_id, '')
     end
+
+
 end
 
-role_id => [3,4,5]
+

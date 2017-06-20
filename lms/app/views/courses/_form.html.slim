@@ -42,11 +42,12 @@
     .form-group
       = v.label(:role_id, "role",class: 'col-md-2')
       .checkbox.col-md-6
-        - selected_user_roles = user_role.blank? ? '' : user_role
+        - user_role_id = @user_role_ids.nil? ? '' : @user_role_ids.map(&:to_i)
+        - selected_user_roles = user_role.blank? ? user_role_id : user_role
         - @roles.each do | role|
           - checked = false
           - checked = true if selected_user_roles.present? && (selected_user_roles.include? role.id)
-          = label :role_id, role.id
+          label
             = check_box_tag 'role_id[]', role.id, checked, id: "role_id_#{role.id}"
             = role.title
     .form-group

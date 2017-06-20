@@ -7,5 +7,5 @@ class Version < ActiveRecord::Base
   has_and_belongs_to_many :version_roles, join_table: 'versions_roles'
   mount_uploader :image, ImageUploader
   mount_uploader :video, VideoUploader
-
+  accepts_nested_attributes_for :version_roles
 end

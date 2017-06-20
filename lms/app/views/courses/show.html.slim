@@ -3,7 +3,7 @@ section.show-course
   p
     strong "Show"
       span :
-    = @course.title
+    = @course.name
   .actions
     = link_to "Edit", edit_course_path(@course), class: "btn btn-primary"
     = link_to "Cancel", course_path

@@ -22,4 +22,27 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
     devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name])
   end
+
+  def set_flash_message(key, kind, options = {})
+    message = find_message(kind, options)
+    if options[:now]
+      flash.now[key] = message if message.present?
+    else
+      flash[key] = message if message.present?
+    end
+  end
+
+  def find_message(kind, options = {})
+    options[:scope] ||= translation_scope
+    options[:default] = Array(options[:default]).unshift(kind.to_sym)
+    options = course_creation_i18n_options(options)
+  end
+
+  def translation_scope
+    "#{controller_name}"
+  end
+
+  def course_creation_i18n_options(options)
+    options
+  end
 end
