@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.boolean  "content",       default: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
-    t.integer  "versions_id"
-    t.index ["versions_id"], name: "index_course_sections_on_versions_id"
+    t.integer  "version_id"
+    t.index ["version_id"], name: "index_course_sections_on_version_id"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -260,13 +260,6 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  create_table "version_roles", id: false, force: :cascade do |t|
-    t.integer "role_id"
-    t.integer "version_id"
-    t.index ["role_id"], name: "index_version_roles_on_role_id"
-    t.index ["version_id"], name: "index_version_roles_on_version_id"
-  end
-
   create_table "versions", force: :cascade do |t|
     t.string   "version",                                   default: "0"
     t.text     "short_description"
@@ -286,6 +279,13 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.integer  "category_id"
     t.index ["category_id"], name: "index_versions_on_category_id"
     t.index ["course_id"], name: "index_versions_on_course_id"
+  end
+
+  create_table "versions_roles", id: false, force: :cascade do |t|
+    t.integer "role_id"
+    t.integer "version_id"
+    t.index ["role_id"], name: "index_versions_roles_on_role_id"
+    t.index ["version_id"], name: "index_versions_roles_on_version_id"
   end
 
 end

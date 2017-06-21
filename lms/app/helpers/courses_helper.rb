@@ -8,6 +8,7 @@ module CoursesHelper
 
   def user_role
     version_roles = []
+    #debugger
     unless version_roles.blank?
       @version_roles.each do |user_role|
         version_roles.push user_role.role_id
