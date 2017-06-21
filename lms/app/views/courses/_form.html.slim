@@ -42,14 +42,8 @@
     .form-group
       = v.label(:role_id, "role",class: 'col-md-2')
       .checkbox.col-md-6
-        - user_role_id = @user_role_ids.nil? ? '' : @user_role_ids.map(&:to_i)
-        - selected_user_roles = user_role.blank? ? user_role_id : user_role
-        - @roles.each do | role|
-          - checked = false
-          - checked = true if selected_user_roles.present? && (selected_user_roles.include? role.id)
-          label
-            = check_box_tag 'role_id[]', role.id, checked, id: "role_id_#{role.id}"
-            = role.title
+        //= debug @course.versions.first.version_roles
+        = v.collection_check_boxes(:version_role_ids, Role.all, :id, :title )
     .form-group
        = v.label(:expiry,class: 'col-md-2')
        .col-md-6

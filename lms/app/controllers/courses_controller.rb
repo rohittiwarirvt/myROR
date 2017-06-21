@@ -9,16 +9,14 @@ class CoursesController < ApplicationController
   end
 
   def new
-    #debugger
     @course = Course.new
     @version = @course.versions.build
-
+    @version_role = @version.version_roles.build
   end
 
   def create
     @course = Course.new(course_params)
-    debugger
-    if @course.save && VersionRole.create(version_user_roles_params)
+    if @course.save
       set_flash_message :success, :success
       redirect_to @course
     else
@@ -45,11 +43,15 @@ class CoursesController < ApplicationController
   end
 
   def destroy
-
+    if @course
+      @course.destroy
+      set_flash_message :notice, :destroy
+    else
+      set_flash_message :notice, :failure
+    end
   end
 
   def version_roles
-    #@user_role_ids ||= ''
     @roles = Role.order('title')
   end
 
@@ -61,25 +63,13 @@ class CoursesController < ApplicationController
     @categories = Category.order('name')
   end
 
-  def version_user_roles_params
-    version_user_roles = []
-    if params[:role_id].present?
-      params[:role_id].each do |role_id|
-        version_role_hash = {
-          role_id: role_id,
-          version_id: @course.versions.last.id
-        }
-        version_user_roles.push(version_role_hash)
-      end
-    end
-    version_user_roles
-  end
 
   private
     def course_params
+      debugger
       params.require(:course).permit(:id, :name, versions_attributes:[:id,
       :description, :image, :category_id, :image, :video, :expiry, :price,
-      :amount, :short_description, :prerequisite])
+      :amount, :short_description, :prerequisite, :version_roles])
     end
 
     def role_params

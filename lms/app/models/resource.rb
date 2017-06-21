@@ -1,4 +1,3 @@
-class Resources < ActiveRecord::Base
-  belongs_to: version
-
+class Resource < ActiveRecord::Base
+  belongs_to :version
 end

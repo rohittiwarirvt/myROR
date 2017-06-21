@@ -10,7 +10,7 @@
     tbody
     - @courses.each do |course|
       tr
-        td = course.title
+        td = course.name
         td.action
           =link_to "Show", course_path(course), class: "btn btn-sm btn-default"
           =link_to "Edit", edit_course_path(course), class: "btn btn-sm btn-default"

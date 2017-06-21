@@ -21,7 +21,7 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    create_table :version_roles, id: false do |t|
+    create_table :versions_roles, id: false do |t|
       t.belongs_to :role, index: true
       t.belongs_to :version, index: true
     end
@@ -43,7 +43,7 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    add_reference :course_sections, :versions, foreign_key: true
+    add_reference :course_sections, :version, foreign_key: true
 
     #certificate
     create_table :certificates do |t|
