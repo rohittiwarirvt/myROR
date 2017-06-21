@@ -17,6 +17,7 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     if @course.save
+      @course.versions.first.version_roles<<roles_params.map{ |id| [Role.find(id)]} unless roles_params.blank?
       set_flash_message :success, :success
       redirect_to @course
     else
@@ -66,14 +67,17 @@ class CoursesController < ApplicationController
 
   private
     def course_params
-      debugger
       params.require(:course).permit(:id, :name, versions_attributes:[:id,
       :description, :image, :category_id, :image, :video, :expiry, :price,
-      :amount, :short_description, :prerequisite, :version_roles])
+      :amount, :short_description, :prerequisite])
     end
 
-    def role_params
-      params.fetch(:role_id, '')
+    def roles_params
+      role_ids =nil
+      params[:course][:versions_attributes].values.each do |item|
+        role_ids = item[:version_role_ids]
+      end if params[:course] and params[:course][:versions_attributes]
+      role_ids.reject(&:empty?)
     end
 
 

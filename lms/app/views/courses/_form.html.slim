@@ -42,7 +42,6 @@
     .form-group
       = v.label(:role_id, "role",class: 'col-md-2')
       .checkbox.col-md-6
-        //= debug @course.versions.first.version_roles
         = v.collection_check_boxes(:version_role_ids, Role.all, :id, :title )
     .form-group
        = v.label(:expiry,class: 'col-md-2')
