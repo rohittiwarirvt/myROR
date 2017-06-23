@@ -12,4 +12,15 @@ class Version < ActiveRecord::Base
   def update_role(roles)
     version_roles.destroy_all && version_roles<<roles
   end
+
+  def self.list_courses(page = nil)
+    includes(:course, :category)
+    .order('versions.id DESC')
+    .page(page).per(10)
+  end
+
+  def self.search_courses(pages = nil, keyworkd = nil)
+    includes(:coures, :category).where('LOWER(name) LIKE LOWER(?)', '%' +
+     keyboard.to_s + '%').order('versions.id DESC').references(:course).page(page).per(10)
+  end
 end

@@ -4,6 +4,11 @@ class VersionsController < ApplicationController
 
   def index
     @versions = Version.all
+    if !params[:search].present?
+      @versions = Version.list_courses params[:page]
+    else
+      @versions = Version.search_courses params[:page], params[:search]
+    end
   end
 
   def show
