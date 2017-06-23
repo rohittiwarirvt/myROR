@@ -1,0 +1,40 @@
+section
+  .row
+    .col-md-8
+      h1 Course Name
+      h4
+        span Course Breadcrumb
+        span /
+        span Chapter Breadcrumbs
+    .col-md-4
+      .publish-btn-wrap
+        - publish_unpublish = @version.published ? "UnPublish" : "Publishe"
+        = hidden_field_tag :publish, @version.published
+        = hidden_field_tag :editable_field, @version.editable
+        = link_to publish_unpublish, 'javascript:void(0)', class: 'btn btn-primary', \
+         id: 'publish_course', data: { unplish_message: "R un sure to unpulish?", \
+          unplish_text: "Course unpublish", publish_text: "Publish course"}
+        = link_to "Preview", version_path, class: 'btn btn-primary'
+.chapter-container
+  - unless @version.editable
+    .warning-msg-block.alert-warning
+      p "We cant delete dude"
+  p#notice= notice
+  .alert.alert-success.hidden-area Unublishe success message
+  .alert.alert-success.hidden-area Editable success message
+  .alert.alert-danger.hidden-area
+    p Editable error message
+  .alert.alert-danger.hidden-area
+    p Error 1
+    p Error 2
+    ol
+      li Error 3
+      li Error 4
+      li Error 5
+      li Error 6
+      li Error 7
+  .alert.alert-success.hidden-area
+  = link_to @course.name, 'javascript:void(0);', class: 'course-heading show-heading'
+  h5.text-center Add course note
+  #course-content= version_view_path(@chapters, @version)
+  = hidden_field_tag :version_id, @version.id

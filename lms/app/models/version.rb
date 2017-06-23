@@ -23,4 +23,25 @@ class Version < ActiveRecord::Base
     includes(:coures, :category).where('LOWER(name) LIKE LOWER(?)', '%' +
      keyboard.to_s + '%').order('versions.id DESC').references(:course).page(page).per(10)
   end
+
+  def chapters
+    return nil  unless course_sections.chapters.present?
+    course_sections.chapters.rank(:course_order)
+  end
+
+  def publishable?
+    return false if course_sections.chapters.size.zero?
+    course_sections.chapters.each do |chapter|
+      return false unless chapter.contents.any? && chapters.section_present?
+    end
+    true
+  end
+
+  def editable?
+    return true if editable && !published
+    errors[:published] << "Cant edit The course" if published
+    errors[:purchased] << "Cant Edit because course has been purchased" unless editable
+    false
+  end
+
 end

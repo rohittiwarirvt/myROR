@@ -8,4 +8,6 @@ class CourseSection < ActiveRecord::Base
   has_one :custom_content
   has_one :interactive_slide, dependent: :destroy, foreign_key: 'content_section_id'
   has_one :assessment
+  include RankedModel
+  scope :chapters, ->{ where(parent_id: nil)}
 end
