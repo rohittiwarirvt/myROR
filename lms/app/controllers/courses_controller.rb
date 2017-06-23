@@ -18,7 +18,7 @@ class CoursesController < ApplicationController
     if @course.save
       @course.versions.first.version_roles<< version_role_init unless roles_params.blank?
       set_flash_message :success, :success
-      redirect_to @course
+      redirect_to syllabus_version_path(@course.versions.first)
     else
       @user_role_ids = role_params
       respond_to do |format|
@@ -42,7 +42,7 @@ class CoursesController < ApplicationController
     version = @course.versions.last
     if @course.update(course_params)
       version.update_role(version_role_init)
-      redirect_to @course
+      redirect_to syllabus_version_path(@course.versions.first)
     else
       redirect_to edit_course_path
     end
