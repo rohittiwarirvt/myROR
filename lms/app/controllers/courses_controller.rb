@@ -1,5 +1,4 @@
 class CoursesController < ApplicationController
-  before_action :version_roles, only: [:edit, :new, :create]
   before_action :set_course, only: [:edit, :show, :destroy, :update]
   before_action :course_categories, only: [:new, :edit, :create]
 
@@ -17,7 +16,7 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     if @course.save
-      @course.versions.first.version_roles<<roles_params.map{ |id| [Role.find(id)]} unless roles_params.blank?
+      @course.versions.first.version_roles<< version_role_init unless roles_params.blank?
       set_flash_message :success, :success
       redirect_to @course
     else
@@ -40,7 +39,13 @@ class CoursesController < ApplicationController
   end
 
   def update
-
+    version = @course.versions.last
+    if @course.update(course_params)
+      version.update_role(version_role_init)
+      redirect_to @course
+    else
+      redirect_to edit_course_path
+    end
   end
 
   def destroy
@@ -52,10 +57,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  def version_roles
-    @roles = Role.order('title')
-  end
-
   def set_course
     @course = Course.find(params[:id])
   end
@@ -64,7 +65,9 @@ class CoursesController < ApplicationController
     @categories = Category.order('name')
   end
 
-
+  def version_role_init
+    roles_params.map{ |id| [Role.find(id)]}
+  end
   private
     def course_params
       params.require(:course).permit(:id, :name, versions_attributes:[:id,
@@ -82,5 +85,6 @@ class CoursesController < ApplicationController
 
 
 end
+
 
 

@@ -8,4 +8,19 @@ class Version < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   mount_uploader :video, VideoUploader
   accepts_nested_attributes_for :version_roles
+
+  def update_role(roles)
+    version_roles.destroy_all && version_roles<<roles
+  end
+
+  def self.list_courses(page = nil)
+    includes(:course, :category)
+    .order('versions.id DESC')
+    .page(page).per(10)
+  end
+
+  def self.search_courses(pages = nil, keyworkd = nil)
+    includes(:coures, :category).where('LOWER(name) LIKE LOWER(?)', '%' +
+     keyboard.to_s + '%').order('versions.id DESC').references(:course).page(page).per(10)
+  end
 end
