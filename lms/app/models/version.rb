@@ -8,4 +8,8 @@ class Version < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   mount_uploader :video, VideoUploader
   accepts_nested_attributes_for :version_roles
+
+  def update_role(roles)
+    version_roles.destroy_all && version_roles<<roles
+  end
 end
