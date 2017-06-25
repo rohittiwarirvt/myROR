@@ -25,7 +25,6 @@ class Version < ActiveRecord::Base
   end
 
   def chapters
-    return nil  unless course_sections.chapters.present?
     course_sections.chapters.rank(:course_order)
   end
 

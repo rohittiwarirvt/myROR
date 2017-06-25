@@ -10,6 +10,14 @@ Rails.application.routes.draw do
       get :preview
       get :syllabus, action: :show, version_view: 'Syllabus'
     end
+    resources :course_sections, except: [:index, :show] do
+      resources :resources do
+        put :update_details
+      end
+      resources :videos, controller: 'resources', type: 'Video' do
+        get :content, on: :new, action: :new, content: true
+      end
+    end
   end
   #resources :categories
   #resources :certificates

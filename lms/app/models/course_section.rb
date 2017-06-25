@@ -10,4 +10,5 @@ class CourseSection < ActiveRecord::Base
   has_one :assessment
   include RankedModel
   scope :chapters, ->{ where(parent_id: nil)}
+  ranks :course_order, :column => :course_order
 end
