@@ -17,14 +17,14 @@ section
         = link_to "Preview", version_path, class: 'btn btn-primary'
 .chapter-container
   - unless @version.editable
-    .warning-msg-block.alert-warning
+    .warning-msg-block.alert-warning.hide
       p "We cant delete dude"
   p#notice= notice
-  .alert.alert-success.hidden-area Unublishe success message
-  .alert.alert-success.hidden-area Editable success message
-  .alert.alert-danger.hidden-area
+  .alert.alert-success.hidden-area.hide Unublishe success message
+  .alert.alert-success.hidden-area.hide Editable success message
+  .alert.alert-danger.hidden-area.hide
     p Editable error message
-  .alert.alert-danger.hidden-area
+  .alert.alert-danger.hidden-area.hide
     p Error 1
     p Error 2
     ol
