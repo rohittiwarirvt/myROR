@@ -1,0 +1,11 @@
+.edit-course-section
+  = form_for [version,course_section], html: { class: 'well'}, remote: true do |f|
+    span.chapter-name = course_section_name(chapter, course_section)
+    .form-group
+      = f.text_field :name, class: 'form-control', maxlength: '50'
+      .notice-error
+    = f.hidden_field :parent_id, value: chapter.id if chapter
+    .clearfix
+    .edit-btn-group
+      = f.submit "Submit", class: 'cs-edit-submit btn btn-primary', data: {disable: 'Please Wait..'}
+      = link_to "Cancel", 'javascript:void(0)', class: 'cancel-edit'

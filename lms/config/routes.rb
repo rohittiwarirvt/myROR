@@ -17,6 +17,20 @@ Rails.application.routes.draw do
       resources :videos, controller: 'resources', type: 'Video' do
         get :content, on: :new, action: :new, content: true
       end
+      resources :presentations do
+        resources :slides do
+          member do
+            put :update_settings
+            put :update_ppt_title
+            put :delete_bg_img
+            put :update_title
+            put :update_contents
+            delete :destroy_column
+            post :slide_clone
+            put :apply_settings
+          end
+        end
+      end
     end
   end
   #resources :categories

@@ -1,11 +1,11 @@
 ul
   - chapters.each do |chapter|
-    li.chapter data=(chapter_id=chapter.id)
+    li.chapter data= {chapter_id: chapter.id}
       = div_for(chapter) do
         = render partial: 'course_sections/course_section', locals: {cs: chapter, version: version}
       ul.content-listing.sortable
         - chapter.direct_contents.rank(:chapter_order).each do |content|
-          li.section
+          li.section.course-content data=  {content_id: content.id, content: true}
             = div_for(conent, class: section_class(content)) do
               = render partial: 'course_sections/course_section', locals: { cs: content, version: version}
       ul.section-list-sortable.sortable
@@ -31,7 +31,7 @@ ul
     .section-btn-wrap
       -unless @version.published || !@version.editable
         .cs-button.add-section
-          = link_to content_tag(:span, "Add sectin"), new_version_course_section_path(version, cs: chapter.id), remote: true, class: "add-new-section"
+          = link_to content_tag(:span, "Add section"), new_version_course_section_path(version, cs: chapter.id), remote: true, class: "add-new-section"
         .cs-button.add-assessment
           = link_to content_tag(:span, "Add Assessment"), new_version_course_section_assessment_path(version, chapter, section: true), class: 'btn btn-default'
   - unless @version.published || !@version.editable

@@ -1,0 +1,6 @@
+en:
+  interactive_slides:
+    form:
+      slide_text: "Text Based"
+      slide_image: "Image Based"
+      slide_text_image: "Text and Image Based"

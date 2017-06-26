@@ -11,4 +11,12 @@ class CourseSection < ActiveRecord::Base
   include RankedModel
   scope :chapters, ->{ where(parent_id: nil)}
   ranks :course_order, :column => :course_order
+  CONTENT_TYPES = { presentation: 'presentation' }
+  def section?
+    parent_id.present? && !content
+  end
+
+  def wrapped_content
+    content_resource || presentation || custom_content || assessment || interactive_slide
+  end
 end

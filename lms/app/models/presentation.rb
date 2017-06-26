@@ -1,5 +1,5 @@
 class Presentation < ActiveRecord::Base
-  has_many : slides, dependend: :destroy
-  belongs_to : course_section
+  has_many :slides, dependent: :destroy
+  belongs_to :course_section
 
 end
