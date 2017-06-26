@@ -45,4 +45,11 @@ class ApplicationController < ActionController::Base
   def course_creation_i18n_options(options)
     options
   end
+
+  def render_notice
+    flash.now.notice = message
+    respond_to do |format|
+      format.js  { render file: 'layouts/notice'}
+    end
+  end
 end
