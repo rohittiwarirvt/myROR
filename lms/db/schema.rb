@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.boolean  "correct_answer"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.integer  "questions_id"
-    t.index ["questions_id"], name: "index_answers_on_questions_id"
+    t.integer  "question_id"
+    t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
   create_table "assessments", force: :cascade do |t|
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.boolean  "randomize"
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
-    t.integer  "course_sections_id"
-    t.index ["course_sections_id"], name: "index_assessments_on_course_sections_id"
+    t.integer  "course_section_id"
+    t.index ["course_section_id"], name: "index_assessments_on_course_section_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.integer  "course_order"
     t.integer  "chapter_order"
     t.boolean  "content",       default: false
+    t.boolean  "is_assessment", default: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "version_id"
@@ -77,13 +78,13 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.index ["course_id"], name: "index_courses_certificates_on_course_id"
   end
 
-  create_table "custom_content", force: :cascade do |t|
+  create_table "custom_contents", force: :cascade do |t|
     t.string   "title"
     t.string   "zip"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.integer  "course_sections_id"
-    t.index ["course_sections_id"], name: "index_custom_content_on_course_sections_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "course_section_id"
+    t.index ["course_section_id"], name: "index_custom_contents_on_course_section_id"
   end
 
   create_table "evaluation_questions", force: :cascade do |t|
@@ -100,12 +101,12 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.string   "name"
     t.text     "description"
     t.string   "type"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.integer  "versions_id"
-    t.integer  "course_sections_id"
-    t.index ["course_sections_id"], name: "index_interactive_slides_on_course_sections_id"
-    t.index ["versions_id"], name: "index_interactive_slides_on_versions_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "version_id"
+    t.integer  "course_section_id"
+    t.index ["course_section_id"], name: "index_interactive_slides_on_course_section_id"
+    t.index ["version_id"], name: "index_interactive_slides_on_version_id"
   end
 
   create_table "interactive_slides_informations", force: :cascade do |t|
@@ -113,10 +114,10 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.string   "title"
     t.text     "description"
     t.string   "type"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.integer  "interactive_slides_id"
-    t.index ["interactive_slides_id"], name: "index_interactive_slides_informations_on_interactive_slides_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "interactive_slide_id"
+    t.index ["interactive_slide_id"], name: "index_interactive_slides_informations_on_interactive_slide_id"
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -128,22 +129,22 @@ ActiveRecord::Schema.define(version: 20170610152615) do
 
   create_table "presentations", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.integer  "course_sections_id"
-    t.index ["course_sections_id"], name: "index_presentations_on_course_sections_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "course_section_id"
+    t.index ["course_section_id"], name: "index_presentations_on_course_section_id"
   end
 
   create_table "questions", force: :cascade do |t|
     t.text     "title"
     t.text     "additional_text"
     t.integer  "question_order"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "question_categories_id"
-    t.integer  "assessments_id"
-    t.index ["assessments_id"], name: "index_questions_on_assessments_id"
-    t.index ["question_categories_id"], name: "index_questions_on_question_categories_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "question_category_id"
+    t.integer  "assessment_id"
+    t.index ["assessment_id"], name: "index_questions_on_assessment_id"
+    t.index ["question_category_id"], name: "index_questions_on_question_category_id"
   end
 
   create_table "questions_categories", force: :cascade do |t|
@@ -160,9 +161,11 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.integer  "version_order"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
-    t.integer  "course_sections_id"
+    t.integer  "course_section_id"
+    t.integer  "content_section_id"
     t.integer  "version_id"
-    t.index ["course_sections_id"], name: "index_resources_on_course_sections_id"
+    t.index ["content_section_id"], name: "index_resources_on_content_section_id"
+    t.index ["course_section_id"], name: "index_resources_on_course_section_id"
     t.index ["version_id"], name: "index_resources_on_version_id"
   end
 
@@ -186,8 +189,8 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.string   "transition"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.integer  "slides_id"
-    t.index ["slides_id"], name: "index_slide_settings_on_slides_id"
+    t.integer  "slide_id"
+    t.index ["slide_id"], name: "index_slide_settings_on_slide_id"
   end
 
   create_table "slides", force: :cascade do |t|
@@ -196,8 +199,8 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.integer  "slides_order"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.integer  "presentations_id"
-    t.index ["presentations_id"], name: "index_slides_on_presentations_id"
+    t.integer  "presentation_id"
+    t.index ["presentation_id"], name: "index_slides_on_presentation_id"
   end
 
   create_table "slides_contents", force: :cascade do |t|
@@ -207,8 +210,8 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.string   "type"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "slides_id"
-    t.index ["slides_id"], name: "index_slides_contents_on_slides_id"
+    t.integer  "slide_id"
+    t.index ["slide_id"], name: "index_slides_contents_on_slide_id"
   end
 
   create_table "test1", force: :cascade do |t|
@@ -263,7 +266,7 @@ ActiveRecord::Schema.define(version: 20170610152615) do
   create_table "versions", force: :cascade do |t|
     t.string   "version",                                   default: "0"
     t.text     "short_description"
-    t.text     "description",                                             null: false
+    t.text     "description",                                               null: false
     t.string   "image"
     t.string   "video"
     t.integer  "expiry"
@@ -271,10 +274,10 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.decimal  "amount",            precision: 5, scale: 2
     t.string   "default_image"
     t.integer  "prerequisite"
-    t.boolean  "editable"
-    t.boolean  "published"
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
+    t.boolean  "editable",                                  default: true
+    t.boolean  "published",                                 default: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.integer  "course_id"
     t.integer  "category_id"
     t.index ["category_id"], name: "index_versions_on_category_id"
