@@ -70,6 +70,7 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
 
     add_reference :interactive_slides, :version, foreign_key: true
     add_reference :interactive_slides, :course_section, foreign_key: true
+    add_reference :interactive_slides, :content_section, foreign_key: true
 
     #interactive_slides_informations
     create_table :interactive_slides_informations do |t|

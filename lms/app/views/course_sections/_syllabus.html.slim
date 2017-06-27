@@ -39,7 +39,7 @@ ul
       = link_to content_tag(:span, "Add Chapter"), new_version_course_section_path(version, cs: 'new'), remote: true, class: 'add-new-chapter-btn'
   - if chapters.any?
     #course-eval-tab.course_section.evalution-btn-wrap
-      = linkt_to(course_evaluation_link, class: "add-evaluation-btn") do
+      = link_to(course_evaluation_link, class: "add-evaluation-btn") do
         = @version.evaluation_questions.any? ? content_tag(:span, "course Eval") : content_tag(:span, "Add eval")
 span.cancel-text.hidden-area.add-content#original= "Cancel"
 span.add-text.hidden-area.add-content#original= "Add Content"

@@ -101,10 +101,12 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.string   "name"
     t.text     "description"
     t.string   "type"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "version_id"
     t.integer  "course_section_id"
+    t.integer  "content_section_id"
+    t.index ["content_section_id"], name: "index_interactive_slides_on_content_section_id"
     t.index ["course_section_id"], name: "index_interactive_slides_on_course_section_id"
     t.index ["version_id"], name: "index_interactive_slides_on_version_id"
   end
