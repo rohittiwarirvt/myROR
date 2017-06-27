@@ -31,7 +31,18 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :assessments
+      resources :custom_contents
+      resources :interactive_slides do
+        resources :interactive_slides_informations do
+          member do
+            put :delete_slide_img
+          end
+        end
+      end
     end
+    resources :resources
+    resources :evaluation_questions, except: [:show, :new]
   end
   #resources :categories
   #resources :certificates

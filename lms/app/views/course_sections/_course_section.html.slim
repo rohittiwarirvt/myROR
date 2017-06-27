@@ -16,7 +16,7 @@
     - unless (cs.content? || @version.published || assessment_content || !@version.editable)
       .cs-button.add-content-btn
         = link_to "Add Content", 'javascript:void(0)', class: 'add-content btn btn-default btn-xs'
-  div id='cs-content-tab-#{cs.id}', class: 'cs-content-tab'
+  div id="cs-content-tab-#{cs.id}", class: 'cs-content-tab'
     = link_to "Add Video", new_version_course_section_video_path(version, cs.id), class: 'btn btn-primary', remote: true
     = link_to "Add PDF",  'javascript:void(0)', class: 'btn btn-primary'
     = link_to "Add Custom content",  'javascript:void(0)',class: 'btn btn-primary'

@@ -53,4 +53,7 @@ module CourseSectionsHelper
     "presentation_#{content_class(section.slides.first)}"
   end
 
+  def course_evaluation_link
+    version_evaluation_questions_path(@version)
+  end
 end
