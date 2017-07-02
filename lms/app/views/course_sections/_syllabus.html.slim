@@ -27,19 +27,19 @@ ul
                             .cs-button= link_to '', [version, content], method: :delete, data: {confirm: t(:delete_message)}, remote: true, class: 'delete-btn'
               li.new-content-section.removed
                 div id: "new-section-chapter-#{section.id}"
-    #new-section-chapter-chapter
-    .section-btn-wrap
+    div id = "new-section-chapter-#{chapter.id}"
+    .section-btn-wrap.clearfix
       -unless @version.published || !@version.editable
         .cs-button.add-section
-          = link_to content_tag(:span, "Add section"), new_version_course_section_path(version, cs: chapter.id), remote: true, class: "add-new-section"
+          = link_to content_tag(:span, "Add section"), new_version_course_section_path(version, cs: chapter.id), remote: true, class: "add-new-section btn btn-primary"
         .cs-button.add-assessment
           = link_to content_tag(:span, "Add Assessment"), new_version_course_section_assessment_path(version, chapter, section: true), class: 'btn btn-default'
   - unless @version.published || !@version.editable
-    li#new-section-chapter-new.course_section.add-new-chapter-wrap
-      = link_to content_tag(:span, "Add Chapter"), new_version_course_section_path(version, cs: 'new'), remote: true, class: 'add-new-chapter-btn'
+    li#new-section-chapter-new.course_section.add-new-chapter-wrap.text-center
+      = link_to content_tag(:span, "Add Chapter"), new_version_course_section_path(version, cs: 'new'), remote: true, class: 'add-new-chapter-btn btn btn-primary'
   - if chapters.any?
-    #course-eval-tab.course_section.evalution-btn-wrap
-      = link_to(course_evaluation_link, class: "add-evaluation-btn") do
+    #course-eval-tab.course_section.evalution-btn-wrap.text-center
+      = link_to(course_evaluation_link, class: "add-evaluation-btn btn btn-default") do
         = @version.evaluation_questions.any? ? content_tag(:span, "course Eval") : content_tag(:span, "Add eval")
 span.cancel-text.hidden-area.add-content#original= "Cancel"
 span.add-text.hidden-area.add-content#original= "Add Content"

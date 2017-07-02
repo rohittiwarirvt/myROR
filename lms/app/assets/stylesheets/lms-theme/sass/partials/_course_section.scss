@@ -1,0 +1,47 @@
+#course-content {
+  ul {
+      list-style: none
+  }
+
+}
+
+.chapter-name-wrap {
+  background-color: black;
+  color: #fff;
+  padding: 10px;
+  @include border-radius(5px);
+}
+
+.chapter-container {
+  .add-new-chapter{
+    background: #191919;
+    @include border-radius(4px);
+  }
+  .add-new-chapter-btn,.add-evaluation-btn {
+    width: 90%;
+    margin: 5px;
+  }
+  .chapter{
+    position: relative;
+    .cs-content-tab {
+      display: none;
+    }
+  }
+
+}
+
+a.add-content {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+}
+.section-btn-wrap {
+  .add-section, .add-assessment {
+    width: 50%;
+    float: left;
+    a {
+        width: 90%;
+        margin: 10px 35px;
+    }
+  }
+}
