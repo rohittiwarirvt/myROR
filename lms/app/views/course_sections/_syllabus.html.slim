@@ -6,27 +6,27 @@ ul
       ul.content-listing.sortable
         - chapter.direct_contents.rank(:chapter_order).each do |content|
           li.section.course-content data=  {content_id: content.id, content: true}
-            = div_for(conent, class: section_class(content)) do
+            = div_for(content, class: section_class(content)) do
               = render partial: 'course_sections/course_section', locals: { cs: content, version: version}
-      ul.section-list-sortable.sortable
+      ul.section-list-sortable.sortable.text-center
         - chapter.sections.rank(:chapter_order).each do |section|
           li.section
-            = div_for(content, class: "tes")
+            = div_for(section, class: section_class(section))
               = render partial: 'course_sections/course_section', locals: { cs: section, version: version}
             ul.content-listing.sortable
               - section.contents.rank(:chapter_order).each do |content|
                 li.section
-                  = div_for(content, class: "test") do
-                    .add-chapter
-                      .chatper
+                  = div_for(content, class: section_class(section)) do
+                    .add-chapter-wrap
+                      .chatper-name-wrap
                         .section-name
                           = content.name
                           - unless @version.published
                             .action-wrap
-                            .cs-button= edit_section_link(content)
-                            .cs-button= link_to '', [version, content], method: :delete, data: {confirm: t(:delete_message)}, remote: true, class: 'delete-btn'
+                              .cs-button= edit_section_link(content)
+                              .cs-button= link_to '', [version, content], method: :delete, data: {confirm: t(:delete_message)}, remote: true, class: 'delete-btn'
               li.new-content-section.removed
-                div id: "new-section-chapter-#{section.id}"
+                div id= "new-section-chapter-#{section.id}"
     div id = "new-section-chapter-#{chapter.id}"
     .section-btn-wrap.clearfix
       -unless @version.published || !@version.editable

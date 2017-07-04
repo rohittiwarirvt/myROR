@@ -56,4 +56,8 @@ module CourseSectionsHelper
   def course_evaluation_link
     version_evaluation_questions_path(@version)
   end
+
+  def section_class(section)
+    section.content ? 'content-section': ''
+  end
 end

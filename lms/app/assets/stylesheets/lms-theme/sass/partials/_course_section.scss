@@ -29,7 +29,22 @@
   }
 
 }
-
+.section-list-sortable {
+  .add-chapter-wrap {
+    .chapter-name-wrap{
+      background-color: #286090;
+      border-color: #2e6da4;
+    }
+  }
+  .section {
+    margin:5px auto;
+    width:90%;
+    .course_section {
+      position:relative;
+    }
+  }
+  padding: 0;
+}
 a.add-content {
   position: absolute;
   right: 10px;
@@ -43,5 +58,11 @@ a.add-content {
         width: 90%;
         margin: 10px 35px;
     }
+  }
+}
+
+.cs-content-tab {
+  a {
+    margin:5px;
   }
 }

@@ -1,2 +1,12 @@
 en:
   versions:
+    add_content: 'Add Content'
+    add_video: 'Video'
+    add_assessment: 'Assessment'
+    add_presentation: 'Presentation'
+    add_custom_content: 'Custom Content'
+    add_interactive_slide: 'Interactive Slide'
+    add_image: 'Image'
+    add_pdf: 'PDF'
+    cancel: 'Cancel'
+    delete_link: 'Delete'
