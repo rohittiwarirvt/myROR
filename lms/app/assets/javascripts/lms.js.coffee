@@ -1,0 +1,1 @@
+window.lms = window.lms || {}
