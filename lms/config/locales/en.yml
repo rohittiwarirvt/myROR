@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  courses_title: "Courses"
+  category: "Categories"
+  certificates: "Certificates"

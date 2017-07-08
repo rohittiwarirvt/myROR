@@ -4,6 +4,10 @@ $ ->
       index = $(@).index()
       #label =
 
+  resetLabelOrder = ->
+    courseSectionOrder('.chapter')
+    courseSectionOrder('.section')
+
   contentClick = ( content_button = '.add-content') ->
     $(content_button).click ->
       cs = $(@).data('cs-id')
@@ -13,7 +17,6 @@ $ ->
           link.html($('.cancel-text').html())
         else
           link.html($('.add-text').html())
-  contentClick()
 
   loadSyllabus =->
     $('#chapter-list').sortable(
@@ -54,6 +57,8 @@ $ ->
         movable = ui.item.data('movable')
         movable ||= (movable is undefined)
       )
+    contentClick()
+    resetLabelOrder()
 
   loadSyllabus()
 

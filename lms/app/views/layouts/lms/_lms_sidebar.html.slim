@@ -1,0 +1,21 @@
+ul.lef-nav
+  - if @version.try(:id)
+      li = link_to t('basic_information_nav'), edit_course_path(@version.course_id)
+      li = link_to t('course_syllabus_nav'), syllabus_version_path(@version), class: active_class
+      li.submenu
+        = link_to t('course_resource_nav.course_resources'), 'javascript:void(0)'
+        ul.hide
+          li = link_to t('course_resource_nav.course_resources.document'), version_documents_path(@version)
+          li = link_to t('course_resource_nav.course_resources.video'), version_videos_path(@version)
+          li = link_to t('course_resource_nav.course_resources.quote'), version_quotes_path(@version)
+          li = link_to t('course_resource_nav.course_resources.note'), version_notes_path(@version)
+  - else
+      li = link_to t('basic_information_nav'), edit_course_path(@version.course_id), class: 'active'
+      li = link_to t('course_syllabus_nav'), syllabus_version_path(@version), class: 'disabled'
+      li.submenu
+        = link_to t('course_resource_nav.course_resources'), 'javascript:void(0)'
+        ul.hide
+          li = link_to t('course_resource_nav.course_resources.document'), 'javascript:void(0)'
+          li = link_to t('course_resource_nav.course_resources.video'), 'javascript:void(0)'
+          li = link_to t('course_resource_nav.course_resources.quote'), 'javascript:void(0)'
+          li = link_to t('course_resource_nav.course_resources.note'), 'javascript:void(0)'

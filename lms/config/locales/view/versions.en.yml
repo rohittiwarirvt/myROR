@@ -10,3 +10,8 @@ en:
     add_pdf: 'PDF'
     cancel: 'Cancel'
     delete_link: 'Delete'
+    add_section: 'Add Section'
+    add_section_assessment: 'Add Assessment'
+    add_chapter: 'Add Chapter'
+    add_eval: 'Add Course Evaluation'
+    course_eval: 'Course Evaluation'
