@@ -44,8 +44,8 @@ Rails.application.routes.draw do
     resources :resources
     resources :evaluation_questions, except: [:show, :new]
   end
-  #resources :categories
-  #resources :certificates
+  resources :categories
+  resources :certificates
   get '/home', to: 'application#home', as: 'home'
   get '/secret', to: 'application#secret', as: 'secret'
   get '/about', to: 'application#about', as: 'about'
