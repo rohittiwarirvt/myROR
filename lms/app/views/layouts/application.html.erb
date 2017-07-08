@@ -27,9 +27,18 @@
             </div>
         </div>
       </nav>
-    <div class="container">
+      <%= render 'layouts/lms/lms_courses_nav' %>
       <%= render 'layouts/notifications' %>
-      <%= yield %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+          <%= render 'layouts/lms/lms_sidebar' %>
+        </div>
+        <div class="col-md-10 left-border">
+          <%= yield %>
+        </div>
+      </div>
+
     </div>
   </body>
 </html>

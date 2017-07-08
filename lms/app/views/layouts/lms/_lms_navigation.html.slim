@@ -1,0 +1,37 @@
+.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed data-toggle="collapse" data-target="#mycourse-navbar" aria-expanded="false"
+        span.sr-only Toggle navigation
+        .icon-bar
+        .icon-bar
+        .icon-bar
+      a.navbar-brand href="#" Brand
+    .collapse.navbar-collapse#mycourse-navbar
+      ul.nav.navbar-nav
+        li.active: a href="#" Link
+        li: a href="#" Link
+        li.dropdown
+          a.dropdown-toggle href="#" data-toggle="dropdown" role="button"
+           | Dropdown
+           span.caret
+          ul.dropdown-menu
+            li: a href="#" Action
+            li: a href="#" Another Action
+            li.divider role="separate"
+            li: a href="#" Separated Link
+      form.navbar-form.navbar-left
+        .form-group
+          input.form-control placeholder="Search"
+        button.btn.btn-default Submit
+      ul.nav.navbar-nav.navbar-right
+        li: a href="#" Link
+        li.dropdown
+          a.dropdown-toggle href="#" data-toggle="dropdown" role="button"
+            | Dropdown
+            span.caret
+          ul.dropdown-menu
+            li: a href="#" Action
+            li: a href="#" Another Action
+            li.divider role="separate"
+            li: a href="#" Separated Link
