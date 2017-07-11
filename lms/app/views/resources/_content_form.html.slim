@@ -1,0 +1,23 @@
+.edit-course-section.add-pdf-wrap.content-form
+  = form_for [version, section, resource], html: { class: "well document-content"}, remote: true do |f|
+    .notice-error
+    .form-field
+      = f.label(localize(:field_title), class: 'chapter-name mandatory')
+      .form-group
+        = f.text_field :title, class: 'form-control', maxlength: '50', placeholder: localize("field_title_place_#{@type.downcase}")
+    .form-field
+      = description_label
+      .form-group
+      = f.send(description_field, :description, placeholder: localize("description_place_#{@type.downcase}"), class: "form-control")
+      = f.hidden_field :version_id, value: version.id
+      = f.hidden_field :course_section, value: section.id
+      = hidden_field_tag(:syllabus, true)
+    .form-field
+      .for-group
+        = f.file_field :file
+          .note= localize("add_#{@type.downcase}_note")
+    .clearfix
+    .edit-btn-group
+      = f.submit localize('submit'), class: "cs-edit-submit btn btn-primary submit-resource", data: {name_message: localize("empty_title"), invalid_content: localize("invalid_content"), upload_mp4: localize('blank_content_message'), upload_pdf: localize("blank_pdf_message")}
+      = link_to localize("cancel"), 'javascript:void(0)', class: 'cancel-edit'
+= chapter_tag(section)

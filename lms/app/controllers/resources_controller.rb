@@ -1,4 +1,4 @@
-class ResouceController < ApplicationController
+class ResourcesController < ApplicationController
 
   before_action :set_resource, except: [:index, :new, :create]
   before_action :set_type
@@ -46,7 +46,7 @@ class ResouceController < ApplicationController
   end
 
   def resource_class
-    "#{type}".constantize
+    "#{@type}".constantize
   end
 
   def resource_params
@@ -76,6 +76,7 @@ class ResouceController < ApplicationController
   end
 
   def upload?
+    Resource.upload?(params[:type])
   end
 
   def syllabus?
