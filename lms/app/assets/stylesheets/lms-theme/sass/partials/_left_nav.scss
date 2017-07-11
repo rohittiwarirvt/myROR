@@ -1,0 +1,17 @@
+.left-nav, .left-nav.remove-defaults{
+  li {
+    margin: 1px 0;
+    a {
+      background: $leftNavColorColor;
+      width: 100%;
+      color: $white;
+      display: inline-block;
+      padding: .5em 1em;
+      @include border-radius(5px);
+      &.active {
+        background: $leftNavColorHighlightColor;
+      }
+
+    }
+  }
+}

@@ -1,3 +1,3 @@
-class SlideSetting < ActiveRecord::Base
+class SlideSetting < ApplicationRecord
   belongs_to : slide
 end

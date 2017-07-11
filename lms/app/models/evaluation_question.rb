@@ -1,3 +1,3 @@
-class EvaluationQuestion < ActiveRecord::Base
+class EvaluationQuestion < ApplicationRecord
   belongs_to :version
 end

@@ -6,10 +6,17 @@ DEFAULT_EXPIRY =  {
                 '3 months from the date of uesr purchase' => '90'
               }
 
-ATIVE_CONTROLLERS = %w(assessments questions custom_contents evaluation_questions interactive_slides
+ACTIVE_CONTROLLERS = %w(assessments questions custom_contents evaluation_questions interactive_slides
                     interactive_slides_informations)
 ACTIVE_CLASS = "active"
 
 CATEGORY_TAB = 'categories'
 
 CERTIFICATES_TAB  = 'certficates'
+
+RESOURCE_TYPES = [
+  'Video',
+  'Document',
+  'Quote',
+  'Note',
+]

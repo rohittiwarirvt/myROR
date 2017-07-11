@@ -1,0 +1,15 @@
+ul.remove-defaults {
+  list-style: none;
+  padding: 0;
+  @extend a
+}
+
+a {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.hidden-area {
+  display: none;
+}

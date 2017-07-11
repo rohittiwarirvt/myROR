@@ -1,4 +1,4 @@
-class SlideContent < ActiveRecord::Base\
+class SlideContent < ApplicationRecord
   belongs_to : slide
 
 end

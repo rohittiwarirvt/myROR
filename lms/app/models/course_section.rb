@@ -1,4 +1,4 @@
-class CourseSection < ActiveRecord::Base
+class CourseSection < ApplicationRecord
   belongs_to :version
   belongs_to :chapter, class_name: 'CourseSection', foreign_key: 'parent_id'
   has_many :contents, class_name: 'CourseSection', foreign_key: 'parent_id'

@@ -42,6 +42,10 @@ Rails.application.routes.draw do
       end
     end
     resources :resources
+    get :documents, controller: 'resources', action: :index, type: 'Document'
+    get :videos, controller: 'resources', action: :index, type: 'Video'
+    resources :notes, controller: 'resources', type: 'Note'
+    resources :quotes, controller: 'resources', type: 'Quote'
     resources :evaluation_questions, except: [:show, :new]
   end
   resources :categories
