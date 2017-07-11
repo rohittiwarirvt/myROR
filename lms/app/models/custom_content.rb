@@ -1,4 +1,4 @@
-class CustomContent < ActiveRecord::Base
+class CustomContent < ApplicationRecord
   belongs_to :course_section
 
 end

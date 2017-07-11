@@ -1,4 +1,4 @@
-class Version < ActiveRecord::Base
+class Version < ApplicationRecord
   belongs_to :course
   belongs_to :category
   has_many :course_sections, dependent: :destroy

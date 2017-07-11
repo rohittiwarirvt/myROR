@@ -24,3 +24,12 @@ en:
   courses_title: "Courses"
   category: "Categories"
   certificates: "Certificates"
+  basic_information_nav: 'Basic Information'
+  course_syllabus_nav: 'Course Syllabus'
+  course_resources_nav:
+    course_resources: 'Course Resources'
+    document: 'Document'
+    video: 'Video'
+    quote: 'Quote'
+    note: 'Note'
+  delete_message: 'Are you sure you want to delete?'

@@ -1,3 +1,3 @@
-class LeftColumn < ActiveRecord::Base
+class LeftColumn < ApplicationRecord
 
 end

@@ -1,3 +1,3 @@
-class CenterColumn < ActiveRecord::Base
+class CenterColumn < ApplicationRecord
 
 end

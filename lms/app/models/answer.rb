@@ -1,4 +1,4 @@
-class Answer < ActiveRecord::Base
-  belongs_to : question
+class Answer < ApplicationRecord
+  belongs_to :question
 
 end

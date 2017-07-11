@@ -57,8 +57,8 @@ $ ->
         movable = ui.item.data('movable')
         movable ||= (movable is undefined)
       )
-    contentClick()
-    resetLabelOrder()
+  contentClick()
+  resetLabelOrder()
 
   loadSyllabus()
 

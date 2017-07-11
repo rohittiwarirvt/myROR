@@ -31,7 +31,8 @@ class CoursesController < ApplicationController
   end
 
   def edit
-
+    @version = @course.versions.last
+    @version_roles = @version.version_roles
   end
 
   def show
