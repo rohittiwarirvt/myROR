@@ -1,0 +1,38 @@
+en:
+  resources:
+    success: 'Successfully Uploaded'
+    create: 'Successfully Created'
+    update: 'Successfully Updated'
+    resourses_title: 'Resources'
+    course_name: 'Course Name'
+    Course_resources: 'Course Resources'
+    document_title: 'Documents'
+    video_title: 'Videos'
+    error: 'Please fill all details'
+    quote_title: 'Quote'
+    note_title: 'Note'
+    title: 'Upload'
+    title_lb: 'Title'
+    title_place: 'Title'
+    upload_btn: 'Upload'
+    save_btn: 'Save All'
+    save: 'Save'
+    cancel_btn: 'Cancel'
+    delete_btn: 'Remove'
+    error_message: 'Errors'
+    invalid_pdf: 'Invalid Document format'
+    invalid_video: 'Inavlid Video format, only mp4 is allowed'
+    empty_title: 'Please add title more than 3 characters'
+    back_btn: 'Cancel all'
+    add_note_title: 'Title'
+    add_note_content: 'Content'
+    field_title: 'Title'
+    field_title_place_document: "Enter document title"
+    field_title_place_video: "Enter video title"
+    description_title: "Description"
+    description_place: "Description"
+    description_place_video: "Enter video description"
+    description_place_document: "Enter document title"
+    submit: "Submit"
+    cancel: "Cancel"
+    empty_title: 'Please add title more than 3 characters'
