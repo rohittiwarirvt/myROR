@@ -10,7 +10,7 @@
       .form-group
       = f.send(description_field, :description, placeholder: localize("description_place_#{@type.downcase}"), class: "form-control")
       = f.hidden_field :version_id, value: version.id
-      = f.hidden_field :course_section, value: section.id
+      = f.hidden_field :course_section_id, value: section.id
       = hidden_field_tag(:syllabus, true)
     .form-field
       .for-group

@@ -20,7 +20,7 @@ module CourseSectionsHelper
   end
 
   def edit_interactive_slide_link(section)
-    return unless sectin.interactive_slide
+    return unless section.interactive_slide
     case section.interactive_slide.interactive_slide_type
     when localize('slide_text')
       new_version_course_section_interactive_slide_text_slide_path(section.version, section, section.interactive_slide)
@@ -38,11 +38,11 @@ module CourseSectionsHelper
 
   def edit_content_path(section)
     path_class = content_path(section, content_class(section))
-    "edit_version_course_section_#{path_class}_path"
+    "edit_version_course_section_#{path_class}path"
   end
 
   def content_path(section, content)
-    return edit_slide_path(section) if content.eql?(CourseSection::COTENT_TYPES[:presentation])
+    return edit_slide_path(section) if content.eql?(CourseSection::CONTENT_TYPES[:presentation])
   end
 
   def content_class(section)
