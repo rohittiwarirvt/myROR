@@ -19,11 +19,33 @@ class ResourcesController < ApplicationController
   end
 
   def create
-
+    @resource = resource_class.new(resource_params)
+    if @resource.save
+      @resource.sectionize_content(foreign_key: :content_section_id) if syllabus?
+      respond_to do |format|
+        format.json do
+          render json: {status: true, version_id: params[:version_id]}
+        end
+      end
+    elsif syllabus?
+      render_notice(@resource.errors.full_message.join(','))
+    else
+      respond_to do |format|
+        format.json do
+          render json: { status: false,
+            error: @resource.errors.messages[:base]
+          }
+        end
+        forma.html {render :new}
+      end
+    end
   end
 
   def edit
-
+    respond_to do |format|
+      format.js { render file: 'resource/new_content.js.coffee'}
+      format.html
+    end
   end
 
   def update
@@ -50,6 +72,9 @@ class ResourcesController < ApplicationController
   end
 
   def resource_params
+    params.require(set_type.downcase).permit(:file, :title, :type, :content, :version_id,
+                                             :chapter_order_position, :version_order_position,
+                                             :description, :course_section_id)
   end
 
   def update_params
@@ -80,6 +105,7 @@ class ResourcesController < ApplicationController
   end
 
   def syllabus?
+    params[:syllabus] || @resource.try(:course_section_id)
   end
 
   def resource_redirect_path
