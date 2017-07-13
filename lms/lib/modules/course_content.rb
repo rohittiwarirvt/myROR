@@ -2,7 +2,6 @@ module CourseContent
   ASSOC_OPTS = { foreign_key: :course_section_id}
 
   def sectionize_content(opts = ASSOC_OPTS)
-    debugger
     section = CourseSection.new
     section.version_id = course_section.version_id
     section.parent_id = course_section_id
