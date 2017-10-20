@@ -18,8 +18,8 @@
         = link_to localize('add_content'), 'javascript:void(0)',  data: {cs_id: cs.id}, class: 'add-content btn btn-default btn-xs'
   div id = "cs-content-tab-#{cs.id}" class = 'cs-content-tab text-center'
     = link_to "Add Video", new_version_course_section_video_path(version, cs.id), class: 'btn btn-primary', remote: true
-    = link_to "Add PDF",  'javascript:void(0)', class: 'btn btn-primary'
-    = link_to "Add Custom content",  'javascript:void(0)',class: 'btn btn-primary'
-    = link_to "Add Presentations", 'javascript:void(0)',class: 'btn btn-primary'
-    = link_to "Add Assessment", 'javascript:void(0)',class: 'btn btn-primary'
-    = link_to "Add Interactive Slide", 'javascript:void(0)',class: 'btn btn-primary'
+    = link_to "Add PDF",  new_version_course_section_document_path(version, cs.id), class: 'btn btn-primary', remote: true
+    = link_to "Add Custom content",  new_version_course_section_custom_content_path(version, cs.id), class: 'btn btn-primary'
+    = link_to "Add Presentations", new_version_course_section_presentation_path(version, cs.id),class: 'btn btn-primary'
+    = link_to "Add Assessment", new_version_course_section_assessment_path(version, cs.id), class: 'btn btn-primary'
+    = link_to "Add Interactive Slide", new_version_course_section_interactive_slide_path(version, cs.id), class: 'btn btn-primary'

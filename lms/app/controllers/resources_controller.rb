@@ -26,6 +26,9 @@ class ResourcesController < ApplicationController
         format.json do
           render json: {status: true, version_id: params[:version_id]}
         end
+        format.js { render file: '/course_sections/syllabus.js.coffee'}
+        set_flash_message :success, :create
+        format.html { redirect_to resources_redirect_path}
       end
     elsif syllabus?
       render_notice(@resource.errors.full_message.join(','))
@@ -36,7 +39,7 @@ class ResourcesController < ApplicationController
             error: @resource.errors.messages[:base]
           }
         end
-        forma.html {render :new}
+        format.html {render :new}
       end
     end
   end
@@ -108,7 +111,10 @@ class ResourcesController < ApplicationController
     params[:syllabus] || @resource.try(:course_section_id)
   end
 
-  def resource_redirect_path
+  def resources_redirect_path
+    return syllabus_version_path(@version) if syllabus?
+    resource_type = @type.downcase.pluralize
+    send('version_#{resource_type}_path', @version);
   end
 
 end

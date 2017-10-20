@@ -40,6 +40,9 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :documents, controller: 'resources', type: 'Document' do
+        get :content, on: :new, action: :new, content: true
+      end
     end
     resources :resources
     get :documents, controller: 'resources', action: :index, type: 'Document'
