@@ -114,7 +114,7 @@ class ResourcesController < ApplicationController
   def resources_redirect_path
     return syllabus_version_path(@version) if syllabus?
     resource_type = @type.downcase.pluralize
-    send('version_#{resource_type}_path', @version);
+    send('version_#{resource_type}_path', @version)
   end
 
 end

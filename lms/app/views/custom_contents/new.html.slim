@@ -1,0 +1,7 @@
+section.add-custom-content
+  .loader
+  .custom-page-header
+    h1 Add Custom Content
+  .custom-content-wrap
+    = simple_form_for(@customcontent, url: {action: 'create'}, html: {id: 'new_custom_content'}) do |f|
+      = render 'form', f: f

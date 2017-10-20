@@ -1,0 +1,6 @@
+= f.input :title, maxlength: 50
+= f.input :zip
+= @customcontent.zip_identifier
+  spane.note Only Zip files can be attached
+= f.submit 'submit', class: 'btn btn-primary save-custom-content'
+= link_to 'cancel', syllabus_version_path(@version)

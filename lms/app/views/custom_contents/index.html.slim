@@ -1,0 +1,24 @@
+section
+  .custom-page-header
+    h1 Custom Content list
+  .add-custom-content
+    = link_to 'new', new_version_course_section_custom_content_path, class: 'btn btn-primary pull-right'
+    .clearfix
+  .custom-content-wrapper
+    table.table.table-striped.table-bordered.table-condensed.table-hover
+      thead
+        tr
+          th ContentID
+          th Content Name
+          th Content zip
+          th Action
+      tbody
+      - @customcontents.each do |customcontent|
+        tr
+          td= customcontent.id
+          td= customcontent.name
+          td
+            = link_to customcontent.zip.model[:zip], version_course_section_custom_content_path(id: customcontent.id)
+          td
+            = link_to "Edit", edit_version_course_section_custom_content_path(id: customcontent.id), class: 'btn btn-default'
+            = link_to "Delete", {action: :destroy, id: customcontent.id}, data: {confirm: "Delete message"}, method: :delete, class: 'btn btn-sm btn-danger'
