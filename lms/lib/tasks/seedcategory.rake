@@ -1,5 +1,5 @@
 namespace :import do
-  desc "Impor the Categories"
+  desc "ImporT the Categories"
   task :seedcategory => :environment do
     categories = [
               'Tackle',

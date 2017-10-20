@@ -1,6 +1,7 @@
 .edit-course-section.add-pdf-wrap.content-form
   = form_for [version, section, resource], html: { class: "well document-content"}, remote: true do |f|
-    .notice-error
+    .notice.error
+      = hidden_field_tag :authenticity_token, form_authenticity_token
     .form-field
       = f.label(localize(:field_title), class: 'chapter-name mandatory')
       .form-group
@@ -13,7 +14,7 @@
       = f.hidden_field :course_section_id, value: section.id
       = hidden_field_tag(:syllabus, true)
     .form-field
-      .for-group
+      .form-group
         = f.file_field :file
           .note= localize("add_#{@type.downcase}_note")
     .clearfix
