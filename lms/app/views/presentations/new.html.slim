@@ -1,0 +1,8 @@
+section.presentation-wrapper
+  .custom-page-header
+    .container
+      h1 "Chapter Name" : "#{chapter_name}"
+    - if @chapter_name
+      h4 "Section Name": "#{@course_section.name}"
+  .container
+    = render 'form'
