@@ -27,7 +27,6 @@ class PresentationsController < ApplicationController
   end
 
   def chapter_name
-    debugger
     @chapter_name = @course_section.chapter.name if @course_section.chapter
   end
 end
