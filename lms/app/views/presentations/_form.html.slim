@@ -1,1 +1,25 @@
 .slide-content-wrap
+  = form_for(@presentation,url: version_course_section_presentations_path, html: {method: 'post'}) do |f|
+    - if @presentation.errors.any?
+      #error_explanation.error
+        span
+          some "dam n error"
+        ul
+          - @presentation.errors.full_messages.each do |message|
+            li= message
+    .presentation-name-wrap
+      .form-group
+        = f.label(:title, localize('form.title'), class: 'mandatory')
+        .presentation-name-input
+          = f.text_field :title, placeholder: "title palce", maxlength: '30', class: 'form-control', data: {message: localize('form.blank_name_message')}
+          .clearfix
+    = f.fields_for :slides, @slide do |s|
+      .slide-content
+        h3.subheading "select Layout"
+        ul.layout-type
+          li.one-column-layout
+            = s.text_field :number_of_columns, value: 1, type: 'submit'
+          li.two-column-layout
+            = s.text_field :number_of_columns, value: 2, type: 'submit'
+    .form-group
+      = link_to localize('form.cancel'), syllabus_version_path(params[:version_id])
