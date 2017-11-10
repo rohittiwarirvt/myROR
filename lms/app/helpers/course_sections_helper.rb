@@ -33,7 +33,7 @@ module CourseSectionsHelper
 
   def edit_presentation_path(path, section)
     send(path, section.version, section, section.wrapped_content,
-     section.wrapped_content.slides.first) if content_class(section.wrapped_content).eql?(CourseSection::CONTENT_TYPES[:prsentation])
+     section.wrapped_content.slides.first) if content_class(section.wrapped_content).eql?(CourseSection::CONTENT_TYPES[:presentation])
   end
 
   def edit_content_path(section)

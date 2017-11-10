@@ -6,9 +6,17 @@ class SlidesController < ApplicationController
   before_action :course_section, :version, only: [:new, :update, :destroy, :edit, :create, :slide_clone]
 
   def new
+    @slide = Slide.new
   end
 
   def create
+    slide = @presentation.slides.build(slide_params)
+    if slide.save
+      redirect_to edit_version_course_section_presentation_slide_path(@version,
+       @course_section, @presentation, slide)
+    else
+      render :new
+    end
   end
 
   def update
@@ -42,15 +50,21 @@ class SlidesController < ApplicationController
   end
 
   def set_presentation
+    @presentation = Presentation.find(params[:presentation_id])
+    @slides = @presentation.slides.rank(:slides_order)
   end
 
   def set_slide_settings
+    @slide_contents = @slide.slide_contents.order(:orientation)
+    @slide_setting = @slide.slide_setting
   end
 
   def set_slide
+    @slide = Slide.find(params[:id])
   end
 
   def slide_params
+
   end
 
   def slide_settings_params
@@ -75,12 +89,15 @@ class SlidesController < ApplicationController
   end
 
   def course_section
+    @course_section = CourseSection.find(params[:course_section_id])
   end
 
   def version
+    @version = Version.find(params[:version_id])
   end
 
   def section_names
+    @chapter_name = @course_section.chapter.name if @course_section.chapter
   end
 
 

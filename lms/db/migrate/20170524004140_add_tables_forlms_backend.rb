@@ -126,7 +126,7 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
     add_reference :slides, :presentation, foreign_key: true
 
     #slide_contents
-    create_table :slides_contents do |t|
+    create_table :slide_contents do |t|
       t.text    :content
       t.string  :orientation
       t.string  :file_url
@@ -134,7 +134,7 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    add_reference :slides_contents, :slide, foreign_key: true
+    add_reference :slide_contents, :slide, foreign_key: true
 
     #slide_settings
     create_table :slide_settings do |t|

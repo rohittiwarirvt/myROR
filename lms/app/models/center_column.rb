@@ -1,3 +1,3 @@
-class CenterColumn < ApplicationRecord
+class CenterColumn < SlideContent
 
 end
