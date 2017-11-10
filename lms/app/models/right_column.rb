@@ -1,3 +1,3 @@
-class RightColumn < ApplicationRecord
+class RightColumn < SlideContent
 
 end

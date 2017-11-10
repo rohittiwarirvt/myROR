@@ -8,13 +8,21 @@ class PresentationsController < ApplicationController
   end
 
   def create
+    debugger
     @presentation = @course_section.build_presentation(presentation_params)
-
+    if @presentation.save
+      @presentation.sectionize_content
+      redirect_to edit_version_course_section_presentation_slide_path(
+        params[:version_id], params[:course_section_id],
+        @presentation, @presentation.slides.first)
+    else
+      render :new
+    end
   end
 
   def presentation_params
     params.require(:presentation).permit(
-      :title, :version_id, :slides_attributes, [:number_of_columns]
+      :title, :version_id, slides_attributes: [:number_of_columns]
       )
   end
 
