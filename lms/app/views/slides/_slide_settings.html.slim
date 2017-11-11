@@ -1,0 +1,6 @@
+= f.fields_for :slide_setting, @slide_setting do |s|
+  = s.hidden_field :background_color, id: 'bg_color'
+  = s.file_field :background_img, id: 'bg_img'
+  = s.hidden_field :transition, id: 'transition_val'
+  = check_box_tag('applySettings')
+  = label_tag(:applySettings, localize(:setting_checkbox_note))

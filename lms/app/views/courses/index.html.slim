@@ -1,17 +1,29 @@
 .section.course-listing
   .sub-title-wrap
     h2 Course Listing
+  .row
+    .col-md-10
+      .form-group
+        .search-field
+          input#filter.form-control(placeholder=localize('search_place') type='text')
+            span.glyphicon.glyphicon-search(aria-hidden='true')
+            span.glyphicon-class
+            span.error-msg
+    .colm-md-2
+      .add-course
+        = link_to localize('add_course'), new_course_path, clas: 'btn btn-primary'
+  span#notice-error= notice
   .result
     table.table.table-stripped.table-bordered.table-condensed.table-hover
-    thead
-      tr
-        th Course Name
-        th Action
-    tbody
-    - @courses.each do |course|
-      tr
-        td = course.name
-        td.action
-          =link_to "Show", course_path(course), class: "btn btn-sm btn-default"
-          =link_to "Edit", edit_course_path(course), class: "btn btn-sm btn-default"
-          =link_to "Delete", course_path(course), data: { confirm: "Are you shure you want to delete"}, method: :delete, class: "btn btn-sm btn-danger"
+      thead
+        tr
+          th Course Name
+          th Action
+      tbody
+      - @courses.each do |course|
+        tr
+          td = course.name
+          td.action
+            =link_to "Show", course_path(course), class: "btn btn-sm btn-default"
+            =link_to "Edit", edit_course_path(course), class: "btn btn-sm btn-default"
+            =link_to "Delete", course_path(course), data: { confirm: "Are you shure you want to delete"}, method: :delete, class: "btn btn-sm btn-danger"
