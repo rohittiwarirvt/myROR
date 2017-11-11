@@ -1,0 +1,52 @@
+section.presentation-main-wrapper
+  .custom-page-header.presentaion-header
+    .container
+      .row
+        .loader
+        .col-md-5
+          h1= "#{localize('chapter_name')} : #{chapter_name}"
+          - if @chapter_name
+            h4= "#{localize('section_name')} : #{@course_section.name}"
+        .col-md-5
+          .presentation-name.pull-right
+            .presentation-label = @presentation.title
+            = link_to '', 'javascript:void(0)', class: 'edit-presentation'
+            .presentation-edit-controller
+              .form-group
+                = text_field_tag :title, @presentation.title, {id: 'ppt-edit-name', class: 'form-control'}
+                = link_to localize('form.save'), 'javascript:void(0)', id: 'prt_save', class: 'save pull-left'
+                = link_to localize('form.cancel'), 'javascript:void(0)', class: 'cancel'
+              #error.error
+                = localize(:title_err)
+        .col-md-2
+          .presentation-name-update.pull-right
+            = link_to localize('form.save_and_finish'), syllabus_version_path(@version), class: 'btn btn-lg btn-primary'
+  .presentation-slides-list
+    .container
+      .row
+        .col-md-4
+          = render "slide_listing"
+        .col-md-8
+          = form_for @slide, url: version_course_section_presentation_slide_path, html: {method: 'put'} do |f|
+            = f.hidden_field :id, id: 'slide_id'
+            = f.hidden_field :presentation_id, id: 'presentation_id'
+            h4.pull-left
+              = link_to localize('form.delete_slide_label'), version_course_section_presentation_slide_path(@version, @course_section, @presentation, @slide), data: { method: :delete, confirm: localize('form.delete_msg')}, class: 'pull-right'
+            = render 'slide_settings', f: f
+            .slide-title
+              = slide_title || localize('form.title')
+            #titleEditorWrapper.hidden-area
+              = f.text_area :title, placeholder: localize('form.title_place'), class: 'title-tinymce'
+              = link_to localize('form.cancel'), 'javascript:void(0);', class: 'pull-right cancel'
+              = link_to localize('form.save'), 'javascript:void(0);', class: 'pull-left save'
+              .title.hidden-area
+                .title-content
+                = link_to '','javascript:void(0);', class: 'edit-slide-title hidden-area'
+                = link_to '', 'javascript:void(0);', class: 'remove-title hidden-area'
+            ul.column-content
+              = render "column_#{@slide.number_of_columns}", f:f
+          .slide-button
+            = link_to(localize('form.add_new_slide'), new_version_course_section_presentation_slide_path(@version, @course_section, @presentation), class: 'slide-btn')
+            = link_to localize('form.duplicate_slide_label'),
+              slide_clone_version_course_section_presentation_slide_path(@version, @course_section, @presentation, @slide), method: 'post', class: 'slide-btn'
+            = link_to localize(:cancel), syllabus_version_path(@version), class: 'pull-right'

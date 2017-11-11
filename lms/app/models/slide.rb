@@ -4,8 +4,10 @@ class Slide < ApplicationRecord
   has_one :slide_setting, dependent: :destroy
   accepts_nested_attributes_for :slide_contents, :slide_setting
   after_create :build_layout, :set_defaults
+  include RankedModel
 
-
+  ranks :slides_order,
+        with_same: :presentation_id
   def build_layout
     return if slide_contents.count > 0
     if number_of_columns > 1

@@ -38,7 +38,7 @@ module CourseSectionsHelper
 
   def edit_content_path(section)
     path_class = content_path(section, content_class(section))
-    "edit_version_course_section_#{path_class}path"
+    "edit_version_course_section_#{path_class}_path"
   end
 
   def content_path(section, content)

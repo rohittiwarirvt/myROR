@@ -4,6 +4,7 @@ class SlidesController < ApplicationController
   before_action :set_presentation
   before_action :set_slide_settings, only: [:edit, :update, :destroy]
   before_action :course_section, :version, only: [:new, :update, :destroy, :edit, :create, :slide_clone]
+  before_action :section_names, only: [:new, :edit]
 
   def new
     @slide = Slide.new
@@ -19,7 +20,12 @@ class SlidesController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def update
+    @slide.update(slide_params)
+    edit_render
   end
 
   def destroy
@@ -64,7 +70,15 @@ class SlidesController < ApplicationController
   end
 
   def slide_params
-
+    params.require(:slide).permit(:title, :number_of_columns,
+     :slides_order_position,
+      slide_setting_attributes: [
+        :background_color, :backgroud_img,
+        :transition, :id
+        ],
+     slide_contents_attributes: [
+      :content, :id, :file_url
+      ])
   end
 
   def slide_settings_params
@@ -77,6 +91,7 @@ class SlidesController < ApplicationController
   end
 
   def edit_render
+    render :edit
   end
 
   def delete_column(id)

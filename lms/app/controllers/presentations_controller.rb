@@ -8,7 +8,6 @@ class PresentationsController < ApplicationController
   end
 
   def create
-    debugger
     @presentation = @course_section.build_presentation(presentation_params)
     if @presentation.save
       @presentation.sectionize_content
