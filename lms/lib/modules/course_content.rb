@@ -12,6 +12,14 @@ module CourseContent
     redirect_section(opts[:foreign_key])
   end
 
+  def update_section
+    section_wrapper.name=content_section_name
+    section_wrapper.save!
+  end
+
+  def section_wrapper
+    try(:content_section) || try(:course_section)
+  end
 
   def redirect_section(key)
     return if key.eql?(:course_section_id) || !respond_to?(:course_section_id)

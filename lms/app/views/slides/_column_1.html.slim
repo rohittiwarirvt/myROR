@@ -1,10 +1,1 @@
 = f.fields_for :slide_contents, @slide_contents do |s|
-  = s.hidden_field
-  = s.hidden_field
-  = s.file_field
-  = s.file_field
-  = s.hidden_field
-  = s.text_area
-  = link_to localize('form.cancel')
-  = link_to localize('form.save')
-  = column_content(@slide_contents[s.index]).html_safe

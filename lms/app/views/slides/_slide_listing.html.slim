@@ -1,10 +1,12 @@
-ul
-  - @slides.each_with_index do |slide, index|
-    li
-      i
-        = index + 1
-      = link_to "Edit Slide #{index +1}", edit_version_course_section_presentation_slide_path(@version, @course_section, @presentation, @slide), class: "show-slide slide-thumb column-#{slide.number_of_columns}-thumb"
-      = link_to "Delete Slide #{index +1}", version_course_section_presentation_slide_path(@version, @course_section, @presentation, @slide), data: { method: :delete, confirm: t(:delete_message)}, class: 'delete-slide'
-    li
-      = link_to "Add new slide", new_version_course_section_presentation_slide_path(@version, @course_section, @presentation), class: ""
+  h4
+    =localize('slides_list_title')
+  ul.slide-listing
+    - @slides.each_with_index do |slide, index|
+      li.slide
+        i.slide-index
+          = index + 1
+        = link_to "", edit_version_course_section_presentation_slide_path(@version, @course_section, @presentation, @slide), class: "show-slide slide-thumb column-#{slide.number_of_columns}-thumb"
+        = link_to "", version_course_section_presentation_slide_path(@version, @course_section, @presentation, @slide), data: { method: :delete, confirm: t(:delete_message)}, class: 'delete-slide'
+      li.slide-last
+        = link_to "Add new slide", new_version_course_section_presentation_slide_path(@version, @course_section, @presentation), class: ""
 

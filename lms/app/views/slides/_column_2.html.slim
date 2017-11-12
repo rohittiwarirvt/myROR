@@ -1,8 +1,2 @@
 = f.fields_for :slide_contents, @slide_contents do |s|
-  = s.hidden_field :type, id: "contentType_#{s.index}"
-  = s.hidden_field :orientation
-  = s.file_field :file_url, id: "rightImageFileField_#{s.index}"
-  = s.file_field :video_url, id: "rightVideoFileField_#{s.index}"
-  = s.hidden_field
-  = s.text_area
-  = column_content(@slide_contents[s.index]).html_safe
+
