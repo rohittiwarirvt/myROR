@@ -41,6 +41,13 @@ class SlidesController < ApplicationController
   end
 
   def update_ppt_title
+    @presentation.title = params[:title]
+    if @presentation.save
+      @presentation.update_section
+      render json: @presentation, serializer: nil
+    else
+      render text: I18n.t('slides.error')
+    end
   end
 
   def update_title
@@ -84,10 +91,11 @@ class SlidesController < ApplicationController
   def slide_settings_params
   end
 
-  def slide_contnet_params
+  def slide_content_params
   end
 
   def slide_title_params
+
   end
 
   def edit_render

@@ -1,4 +1,16 @@
 en:
-  form:
-    save: "Save"
-    cancel: "Cancel"
+  slides:
+    chapter_name: "Chapter"
+    form:
+      title: "Add Slide Title"
+      save: "Save"
+      cancel: "Cancel"
+      save_and_finish: "Save and Finish"
+      delete_slide_label: "Delete Slide"
+      add_new_slide: "Add new Slide"
+      duplicate_slide_label: "Duplicate Slide"
+    cancel: ""
+    title_err: "Please enter valid title"
+    setting_checkbox_note: "Use these settings for all slides in this section"
+    slides_list_title: "Slides"
+
