@@ -48,10 +48,32 @@
       width: 20px;
       height: 17px;
     }
+    .new-slide {
+      width: 157px;
+      height: 88px;
+      border: 1px solid #ddd;
+      display: block;
+      i {
+        height: 23px;
+        width: 23px;
+        margin: 0 auto;
+        display: block;
+        background-repeat: no-repeat;
+        background: asset-url('sprite.png');
+        background-position: -30px -233px;
+        margin-top: 1.5em;
+      }
+      span {
+        position: absolute;
+        color: #283c51;
+        bottom: 10%;
+        left: 20%;
 
+      }
+    }
   }
   .slide-last{
-    clear: both;
+    margin-left: 20px;
   }
 
 }

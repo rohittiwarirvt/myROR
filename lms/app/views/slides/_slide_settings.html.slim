@@ -1,6 +1,35 @@
 = f.fields_for :slide_setting, @slide_setting do |s|
-  = s.hidden_field :background_color, id: 'bg_color'
-  = s.file_field :background_img, id: 'bg_img'
-  = s.hidden_field :transition, id: 'transition_val'
-  = check_box_tag('applySettings')
-  = label_tag(:applySettings, localize(:setting_checkbox_note))
+  .background-setting
+    .background-color.pull-left
+      h6= localize(:color)
+      .color-pick( id='color' style="#{set_background_color}")
+      = s.hidden_field :background_color, id: "bg_color", readonly: 'readonly'
+    .background-image.pull-left
+      h6= localize(:image)
+      .custom-upload
+        #slideBackgroundImage
+          div*{id: 'deleteImage',  class: bg_img_title_div, data: {deleteMessage: localize(:delete_background_image)}}
+            = link_to(background_img_file_name, 'javascript:void(0)', id: "imageName")
+            i
+            = hidden_field_tag('fileName', background_img_file_name)
+          .image-file-field.hidden-area
+            = s.file_field :background_img, id: 'bg_img'
+            .upload-image
+              span Upload Image
+    .transition.pull-right
+      h6= localize(:transition)
+      = s.hidden_field :transition, id: 'transition_val'
+      .transition-slide.slide-tooltip#transitionTypes
+        = link_to('', 'javascript:void(0)', class: "left-transition #{active_transition('slideLeft')}", title: localize(:title_slide_left), data: {transition: localize(:transition_slide_left)})
+        = link_to('', 'javascript:void(0)', class: "left-transition #{active_transition('slideRight')}", title: localize(:title_slide_right), data: {transition: localize(:transition_slide_right)})
+        = link_to('', 'javascript:void(0)', class: "left-transition #{active_transition('slideBottom')}", title: localize(:title_slide_bottom), data: {transition: localize(:transition_slide_bottom)})
+        = link_to('', 'javascript:void(0)', class: "left-transition #{active_transition('slideTop')}", title: localize(:title_slide_top), data: {transition: localize(:transition_slide_top)})
+        = link_to('', 'javascript:void(0)', class: "left-transition #{active_transition('slideBlur')}", title: localize(:title_slide_blur), data: {transition: localize(:transition_slide_blur)})
+        = link_to('', 'javascript:void(0)', class: "left-transition #{active_transition('slideNone')}", title: localize(:title_slide_none), data: {transition: localize(:transition_slide_none)})
+    .checkbox-wrapper
+      = check_box_tag('applySettings')
+      = label_tag(:applySettings, localize(:setting_checkbox_note))
+    .clearfix
+
+
+
