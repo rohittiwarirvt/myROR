@@ -9,8 +9,25 @@ en:
       delete_slide_label: "Delete Slide"
       add_new_slide: "Add new Slide"
       duplicate_slide_label: "Duplicate Slide"
-    cancel: ""
+      slide_setting_label: "Settings"
+      delete_msg: "Are you sure you want to delete slide ?"
+    color: "Background Color"
+    cancel: "Cancel"
     title_err: "Please enter valid title"
     setting_checkbox_note: "Use these settings for all slides in this section"
     slides_list_title: "Slides"
-
+    image: "Background Image"
+    delete_background_image: "Are you sure you want to delete background image ?"
+    transition: 'Transition'
+    title_slide_left: 'Slide Left'
+    transition_slide_left: 'slideLeft'
+    title_slide_right: 'Slide Right'
+    transition_slide_right: 'slideRight'
+    title_slide_top: 'Slide Top'
+    transition_slide_top: 'slideTop'
+    title_slide_bottom: 'Slide Bottom'
+    transition_slide_bottom: 'slideBottom'
+    title_slide_blur: 'Slide Blur'
+    transition_slide_blur: 'slideBlur'
+    title_slide_none: 'Slide None'
+    transition_slide_none: 'slideNone'
