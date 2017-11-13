@@ -75,5 +75,55 @@
   .slide-last{
     margin-left: 20px;
   }
+}
+
+.show-slide-content {
+  .background-setting {
+    .background-color,.background-image {
+      width: 15%;
+      margin-right: 20px;
+      .color-pick {
+        height: 50px;
+        width: 50px;
+        border: 1px solid #ddd;
+        border-radius: 30%;
+      }
+    }
+    .checkbox-wrapper {
+      clear: both;
+      margin: 1em 0;
+      float: left;
+    }
+
+    .transition {
+      a {
+        display: block;
+        float: left;
+        width: 30px;
+        height: 30px;
+        background: asset-url('sprite.png');
+        background-repeat: no-repeat;
+        margin: 0 5px;
+      }
+      .left-transition {
+        background-position: 0 0;
+      }
+      .top-transition {
+        background-position: 0 -117px;
+      }
+      .bottom-transition {
+        background-position: 0 -77px;
+      }
+      .blur-transition {
+        background-position: 0 -157px;
+      }
+      .right-transition {
+        background-position: 0 -37px;
+      }
+      .no-transition {
+        background-position: -41px -197px;
+      }
+    }
+  }
 
 }

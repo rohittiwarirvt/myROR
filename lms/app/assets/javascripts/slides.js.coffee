@@ -39,3 +39,18 @@ $ ->
     else
       $error.show()
 
+  # color picker for slide setting
+  $('#color').colpick(
+    layout: 'hex'
+    submit: 1
+    colorScheme: 'dark'
+    onSubmit: (hsb, hex, rgb, el, bySetColor) ->
+      console.log("teat")
+    onChange: (hsb, hex, rgb, el, bySetColor) ->
+      console.log("teat")
+  ).keyup ->
+    $(@).colpickSetColor @value
+    return
+
+  # image field
+  $('.image-file-field').toggle($('#deleteImage').hasClass('hidden-area'))

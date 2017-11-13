@@ -21,11 +21,11 @@
       = s.hidden_field :transition, id: 'transition_val'
       .transition-slide.slide-tooltip#transitionTypes
         = link_to('', 'javascript:void(0)', class: "left-transition #{active_transition('slideLeft')}", title: localize(:title_slide_left), data: {transition: localize(:transition_slide_left)})
-        = link_to('', 'javascript:void(0)', class: "left-transition #{active_transition('slideRight')}", title: localize(:title_slide_right), data: {transition: localize(:transition_slide_right)})
-        = link_to('', 'javascript:void(0)', class: "left-transition #{active_transition('slideBottom')}", title: localize(:title_slide_bottom), data: {transition: localize(:transition_slide_bottom)})
-        = link_to('', 'javascript:void(0)', class: "left-transition #{active_transition('slideTop')}", title: localize(:title_slide_top), data: {transition: localize(:transition_slide_top)})
-        = link_to('', 'javascript:void(0)', class: "left-transition #{active_transition('slideBlur')}", title: localize(:title_slide_blur), data: {transition: localize(:transition_slide_blur)})
-        = link_to('', 'javascript:void(0)', class: "left-transition #{active_transition('slideNone')}", title: localize(:title_slide_none), data: {transition: localize(:transition_slide_none)})
+        = link_to('', 'javascript:void(0)', class: "right-transition #{active_transition('slideRight')}", title: localize(:title_slide_right), data: {transition: localize(:transition_slide_right)})
+        = link_to('', 'javascript:void(0)', class: "bottom-transition #{active_transition('slideBottom')}", title: localize(:title_slide_bottom), data: {transition: localize(:transition_slide_bottom)})
+        = link_to('', 'javascript:void(0)', class: "top-transition #{active_transition('slideTop')}", title: localize(:title_slide_top), data: {transition: localize(:transition_slide_top)})
+        = link_to('', 'javascript:void(0)', class: "blur-transition #{active_transition('slideBlur')}", title: localize(:title_slide_blur), data: {transition: localize(:transition_slide_blur)})
+        = link_to('', 'javascript:void(0)', class: "no-transition #{active_transition('slideNone')}", title: localize(:title_slide_none), data: {transition: localize(:transition_slide_none)})
     .checkbox-wrapper
       = check_box_tag('applySettings')
       = label_tag(:applySettings, localize(:setting_checkbox_note))

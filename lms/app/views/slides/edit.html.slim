@@ -34,7 +34,7 @@ section.presentation-main-wrapper
                   = f.hidden_field :id, id: 'slide_id'
                   = f.hidden_field :presentation_id, id: 'presentation_id'
                   .show-slide-content
-                    .slide-heading
+                    .slide-heading.clearfix
                       h4.pull-left Slide 1
                       = link_to localize('form.delete_slide_label'), version_course_section_presentation_slide_path(@version, @course_section, @presentation, @slide), data: { method: :delete, confirm: localize('form.delete_msg')}, class: 'pull-right'
                     span.slide-bold= localize('form.slide_setting_label')
