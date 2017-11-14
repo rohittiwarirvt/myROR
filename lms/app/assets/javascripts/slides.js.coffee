@@ -45,7 +45,8 @@ $ ->
     submit: 1
     colorScheme: 'dark'
     onSubmit: (hsb, hex, rgb, el, bySetColor) ->
-      console.log("teat")
+      if !bySetColor
+
     onChange: (hsb, hex, rgb, el, bySetColor) ->
       console.log("teat")
   ).keyup ->

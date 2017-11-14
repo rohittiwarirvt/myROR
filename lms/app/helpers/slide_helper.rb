@@ -22,4 +22,20 @@ module SlideHelper
   def active_transition(transition)
     @slide_setting.transition.eql?(transition) ? 'active-transition' : ''
   end
+
+  def set_style
+    if background_img_exist?
+      set_background_img
+    else
+      set_background_color
+    end
+  end
+
+  def set_background_img
+    "background-image : url(#{@slide_setting.background_img}"
+  end
+
+  def slide_title_class
+    'updated-slide-title' if slide_title.present?
+  end
 end

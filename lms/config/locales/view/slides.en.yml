@@ -11,6 +11,8 @@ en:
       duplicate_slide_label: "Duplicate Slide"
       slide_setting_label: "Settings"
       delete_msg: "Are you sure you want to delete slide ?"
+      slide_content_label: "Content"
+      title_place: 'Slide Title'
     color: "Background Color"
     cancel: "Cancel"
     title_err: "Please enter valid title"
