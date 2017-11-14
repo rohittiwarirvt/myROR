@@ -49,6 +49,17 @@ section.presentation-main-wrapper
                           .title-content
                           = link_to '','javascript:void(0);', class: 'edit-slide-title hidden-area'
                           = link_to '', 'javascript:void(0);', class: 'remove-title hidden-area'
+                    .slide-two-column.save-btn
+                      span.slide-bold= localize('form.slide_content_label')
+                      .column-wrapper*{style: "#{set_style}"}
+                        .slide-title-panel
+                          .column-heading
+                            .slide-title.editor-desc*{class: "#{slide_title_class}"}
+                              =slide_title || localize('form.title')
+                            #titleEditorWrapper
+                              = f.text_area :title, placeholder: localize('form.title_place'), class: "title-tinymce"
+                              = link_to localize('form.cancel'), 'javascript:void(0);', class: 'pull-right save'
+                              = link_to localize('form.save'), 'javascript:void(0);', id: 'saveTitle', class: 'pull-left save', data: {validationMessage: localize('form.content_validation_message')}
                       ul.column-content
                         = render "column_#{@slide.number_of_columns}", f:f
                     .slide-button
