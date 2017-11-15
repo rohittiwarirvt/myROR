@@ -32,6 +32,8 @@ class SlidesController < ApplicationController
   end
 
   def update_settings
+    @slide.update(slide_settings_params)
+    render json: @slide.slide_setting, serializer: nil
   end
 
   def update_contents
@@ -89,6 +91,13 @@ class SlidesController < ApplicationController
   end
 
   def slide_settings_params
+    params.require(:slide)
+        .permit(slide_setting_attributes:
+            [:backgroud_img,
+             :background_color,
+             :tranistion,
+             :id
+             ])
   end
 
   def slide_content_params
