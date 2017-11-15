@@ -1,3 +1,6 @@
+#= require jquery.form
+#= require colpick.js
+
 $ ->
   $presentationEditCtrl = $('.presentation-edit-controller')
   $editPresentation = $('.edit-presentation')
@@ -46,9 +49,16 @@ $ ->
     colorScheme: 'dark'
     onSubmit: (hsb, hex, rgb, el, bySetColor) ->
       if !bySetColor
-
+        $('#bg_color').val("##{hex}")
+      $(el).colpickHide()
+      form = $('.background-color').closest('form')
+      form.ajaxSubmit
+        url: 'update_settings'
+        type: 'put'
+        success: (data, status) ->
+          $('.column-wrapper').css 'background-color', "##{hex}"
     onChange: (hsb, hex, rgb, el, bySetColor) ->
-      console.log("teat")
+      $('.color-pick').css 'background-color', "##{hex}"
   ).keyup ->
     $(@).colpickSetColor @value
     return
