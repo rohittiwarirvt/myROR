@@ -1,1 +1,15 @@
 = f.fields_for :slide_contents, @slide_contents do |s|
+  li#left.single-column
+    .content-uploaders.column-content-left{id: "btnBox_#{s.index}"}, class: "#{content_exist(@slide_contents[s.index])}"
+      = s.hidden_field :type, id: "contentType_#{s.index}"
+      = s.hidden_field :orientation
+      .custom-upload
+        input{ type: 'button', value: 'Text', id: "addTextLeft_#{s.index}"}
+      .custom-upload
+        = s.file_field :file_url, id: "righImageFileField_#{s.index}"
+        .upload-file
+          span= localize('form.image_label')
+      .custom-upload
+        = s.file_filed :video_url, id: "rightVideoFileField_#{s.index}"
+        .upload-file
+          span= localize('form.video_label')
