@@ -13,6 +13,10 @@ en:
       delete_msg: "Are you sure you want to delete slide ?"
       slide_content_label: "Content"
       title_place: 'Slide Title'
+      video_label: 'Video'
+      back: 'Back'
+      text_label: 'Text'
+      image_label: 'Image'
     color: "Background Color"
     cancel: "Cancel"
     title_err: "Please enter valid title"
