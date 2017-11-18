@@ -1,5 +1,5 @@
 class SlidesController < ApplicationController
-
+  layout 'fullpage'
   before_action :set_slide, except: [ :new, :create]
   before_action :set_presentation
   before_action :set_slide_settings, only: [:edit, :update, :destroy]
