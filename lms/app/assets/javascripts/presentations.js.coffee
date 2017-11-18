@@ -2,6 +2,7 @@
 #= require jquery.form
 #= require jwplayer
 #= require slides
+#= require tinymce-jquery
 
 $ ->
   s = undefined
@@ -12,7 +13,7 @@ $ ->
       leftColumnId: $('#col_0')
       columnHeadingElement: $('.column-heading .slide-title')
       slideTitleElement: $('#slide_title')
-      saveTitleBtnElement: $('#save_title')
+      saveTitleBtnElement: $('#saveTitle')
       formElement: $('#slide_title').closest('form')
       saveLeftTextBtnElement: $('#saveTextLeft_0')
       leftCancelBtnElement: $('#cacelTextLeft_0')
@@ -56,14 +57,70 @@ $ ->
       rightVideoDeleteBtn: $('#labelField_0')
       rightVideoWrap: $('#labelField_0')
       rightLabelWrap: $('#labelField_0')
+      uploadBackgroundImageFileField: $('#bg_img')
+      deleteBackgroundImageField: $('#deleteImage')
+      columnWrapperElement: $('.column-wrapper')
+      slide: $('#ids').data()
+      actions:
+        add: 'add'
+        edit: 'edit'
     init: ->
-      console.log("test")
+      s = @settings
+      @bindUIActions()
+      @bindDynamicUIActions()
     bindUIActions: ->
-      console.log("test")
+      # Save slide title
+      s.saveTitleBtnElement.on 'click', ->
+        data = slide:
+                title: tinyMCE.get('slide_title').getContent({format: 'html'})
+        textData = tinyMCE.get('slide_title').getContent({format: 'text'})
+        if textData.length > 30
+          alert s.saveTitleBtnElement.data('validationmessage')
+        else
+          $.ajax
+            url: 'update_title'
+            type: 'put'
+            dataType: 'json'
+            data: data
+            success: (data, status) ->
+              $('#titleEditorWrapper').hide()
+              $('.slide-title-panel .slide-title').addClass('updated-slide-title').show()
+              s.columnHeadingElement.html(data.title)
+      # text Button click
+      s.leftTextBtn.on 'click', ->
+        s.leftCancelBtnElement.attr('data-from', 'add')
+        s.leftBtnWrapElement.hide()
+        s.leftTextFieldWrap.show()
+      s.saveLeftTextBtnElement.on 'click', ->
+        data= tinyMCE.activeEditor.getContent()
+        textData = tinyMCE.activeEditor.getContent({format: 'text'})
+        if textData.trim().length > 500
+          alert s.saveLeftTextBtnElement.data('validationmessage')
+        else
+          if Presentation.textValidate(data)
+            s.leftColumnContent.val(data)
+            s.leftColumnContentType.val('Text')
+            s.formElement.ajaxSubmit
+              url: 'update_contents'
+              type: 'put'
+              success: (data, status) ->
+                s.leftTextFieldWrap.hide()
+                s.leftContentDiv.html(data[0].content)
+                s.leftLabelContent.show()
+          else
+            Presentation.show_error('#invalid_content')
+      #delete left column text content
+      #s.left
+      #image button click
+
+
+
+      #video button click
+
     bindDynamicUIActions: ->
       console.log("test")
-    textValidate: (el)->
-      console.log("test")
+    textValidate: (el) ->
+      el.length
     imageValidate: (el)->
       console.log("test")
     videoValidate: (el)->
@@ -77,3 +134,18 @@ $ ->
     cancelActionFrom: (el) ->
       console.log("test")
 
+  Presentation.init()
+
+  tinymce.init
+    selector: 'textarea.title-tinymce'
+    plugins: [
+      'textcolor colorpicker'
+    ]
+    toolbar1: 'insertfile undo repo| stylesheet | bold italic| alignleft aligncenter alignright alighnjustify| forecolor backcolor'
+
+  tinymce.init
+    selector: 'textarea.tinymce'
+    plugins: [
+      'textcolor colorpicker'
+    ]
+    toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor '
