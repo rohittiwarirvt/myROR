@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title
+      = content_for?(:title) ? yield(:title) + " - #{APPLICATION_NAME}": "#{APPLICATION_NAME}"
+    meta name="viewport" content="width=device-widthm initial-scale=1.0"
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    nav.navbar.navbar-default
+      container-fluid
+        .navbar-header
+          button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-collapse"
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          = link_to APPLICATION_NAME, root_path, class: 'navbar-brand'
+        .collapse.navbar-collapse#menu-collapse
+          = render 'layouts/navigation'
+    = render 'layouts/lms/lms_courses_nav'
+    = render 'layouts/notifications'
+    .container
+      .row
+        .wrapper
+          = yield

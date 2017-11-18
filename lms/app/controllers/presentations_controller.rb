@@ -1,5 +1,5 @@
 class PresentationsController < ApplicationController
-  layout 'application'
+  layout 'fullpage'
   before_action :course_section, :chapter_name, only: [:new, :create]
 
   def new
