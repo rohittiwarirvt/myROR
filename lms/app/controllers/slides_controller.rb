@@ -100,7 +100,7 @@ class SlidesController < ApplicationController
         .permit(slide_setting_attributes:
             [:backgroud_img,
              :background_color,
-             :tranistion,
+             :transition,
              :id
              ])
   end
