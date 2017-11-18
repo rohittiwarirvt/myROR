@@ -17,6 +17,8 @@ en:
       back: 'Back'
       text_label: 'Text'
       image_label: 'Image'
+      text_validation_message: "Please enter text less then 500 characters"
+      content_validation_message: "Please enter text less then 30 characters"
     color: "Background Color"
     cancel: "Cancel"
     title_err: "Please enter valid title"

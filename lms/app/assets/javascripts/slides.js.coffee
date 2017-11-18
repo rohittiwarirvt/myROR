@@ -65,3 +65,14 @@ $ ->
 
   # image field
   $('.image-file-field').toggle($('#deleteImage').hasClass('hidden-area'))
+
+  #slide title
+  $('.slide-title-panel .slide-title').click ->
+    $('#titleEditorWrapper').show()
+    $(@).hide()
+    return
+
+  $('#titleEditorWrapper .cancel').click ->
+    $('#titleEditorWrapper').hide()
+    $('.slide-title-panel .slide-title').show()
+    return
