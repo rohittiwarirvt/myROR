@@ -16,7 +16,7 @@ $ ->
       saveTitleBtnElement: $('#saveTitle')
       formElement: $('#slide_title').closest('form')
       saveLeftTextBtnElement: $('#saveTextLeft_0')
-      leftCancelBtnElement: $('#cacelTextLeft_0')
+      leftCancelBtnElement: $('#cancelTextLeft_0')
       leftColumnContent: $('#textContent_0')
       leftColumnContentType: $('#contentType_0')
       leftLabelContent: $('#contentLabel_0')
@@ -110,21 +110,94 @@ $ ->
           else
             Presentation.show_error('#invalid_content')
       #delete left column text content
-      #s.left
-      #image button click
-
-
-
-      #video button click
+      s.leftTextColumnDelete.on 'click', ->
+        data =
+          id: s.slide.id
+          presentation_id: s.slide.presentation_id
+          slide:
+            column_id: s.leftColumnId.val()
+        $.ajax
+          url: Routes.destroy_column_version_course_section_presentation_slide_path(s.slide.version, s.slide.csId, s.slide.presentationId, s.slide_id)
+          type: 'delete'
+          data: data
+          success: (data, status) ->
+            $('#col_0').val(data.slide.id)
+            s.leftLabelContent.hide()
+            s.leftBtnWrapElement.show()
+      # hide text editor on click of cacncel
+      s.leftCancelBtnElement.on 'click', (e) ->
+        from = s.leftCancelBtnElement.data('from')
+        s.leftTextFieldWrap.hide()
+        if Presentation.cancelActionFrom(e)
+          s.leftBtnWrapElement.show()
+        else
+          s.leftLabelContent.show()
+      # remove left column content field
+      s.leftRemoveBtnElement.on 'click', ->
+        data =
+          id: s.slide.id
+          presentation_id: s.slide.presentation_id
+          slide:
+            column_id: s.leftColumnId.val()
+        $.ajax
+          url: Routes.destroy_column_version_course_section_presentation_slide_path(s.slide.version, s.slide.csId, s.slide.presentationId, s.slide_id)
+          type: 'delete'
+          data: data
+          success: (data, status) ->
+            s.leftLabelContent.hide()
+            s.leftBtnWrapElement.show()
+      #transition js
+      $('a', '#transitionTypes').click (e)->
+        $('#transition_val').val $(e.target).data('transition')
+        form = s.uploadBackgroundImageFileField.closest('form')
+        form.ajaxSubmit
+          url: 'update_settings'
+          dataType: 'json'
+          type: 'put'
+          success: (response) ->
+            $(e.target).siblings().removeClass('active-transition')
+            $(e.target).addClass('active-transition')
 
     bindDynamicUIActions: ->
-      console.log("test")
+      #upload backgroudn image for slide
+      s.uploadBackgroundImageFileFieldElement.bind 'change', ->
+        if Presentation.imageValidate(s.uploadBackgroundImageFileFieldElement)
+          Presentation.show_error('#invalid_img')
+        else
+          s.formElement.ajaxSubmit
+            url: 'update_settings'
+            type: 'put'
+            success: (data, status) ->
+              $('.image-file-field').hide()
+              imageUrl =  "url(#{data.background_img.url})"
+              imageName = data.background_img.url.split('/').pop()
+              s.columnWrapperElement.css 'background-image', imageUrl
+              $('#imageName').text(imageName)
+              s.deleteBackgroundImageField.show()
+      #delete backgroudn image
+      s.deleteBackgroundImageField.on 'click', ->
+        if confirm $('#deleteImage').data('deletemessage')
+          data =
+            presentation_id: s.slide.presentationId
+            id: s.slide.id
+            slide:
+              slide_setting_attributes:
+                background_img: ''
+          $.ajax
+            url: 'delete_bg_img'
+            type: 'put'
+            data: data
+            success: (data, status) ->
+              s.columnWrapperElement.css 'background-image', 'none'
+              s.deleteBackgroundImageField.hide()
+              $('.image-file-field').show()
+      #video button click
     textValidate: (el) ->
       el.length
     imageValidate: (el)->
-      console.log("test")
+      $.inArray(el.val().split('.').pop().toLowerCase(),['jpeg','jpg', 'png']) is -1
     videoValidate: (el)->
-      console.log("test")
+      $.inArray(el.val().split('.').pop().toLowerCase(), ['mp4']) is -1
     show_error: (el) ->
       console.log("test")
     hide_error: (el) ->
@@ -132,7 +205,8 @@ $ ->
     initVideo: (el, url) ->
       console.log("test")
     cancelActionFrom: (el) ->
-      console.log("test")
+      el.target.dataset.from is s.actions['add']
+
 
   Presentation.init()
 
