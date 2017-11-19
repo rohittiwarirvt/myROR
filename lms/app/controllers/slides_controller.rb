@@ -98,7 +98,7 @@ class SlidesController < ApplicationController
   def slide_settings_params
     params.require(:slide)
         .permit(slide_setting_attributes:
-            [:backgroud_img,
+            [:background_img,
              :background_color,
              :transition,
              :id

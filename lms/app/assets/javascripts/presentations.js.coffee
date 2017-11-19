@@ -28,7 +28,7 @@ $ ->
       leftTextBtn: $('#addTextLeft_0')
       leftTextWrap: $('#textDiv_0')
       leftTextColumnDelete: $('#removeColumn_0')
-      leftImageFielField: $('#rightImageFileField_0')
+      leftImageFileField: $('#rightImageFileField_0')
       leftImageDiv: $('#imageDiv_0')
       leftImageWrap: $('#rightColumnImage_0')
       leftImageDeleteBtn:  $('#delete_video_0')
@@ -57,7 +57,7 @@ $ ->
       rightVideoDeleteBtn: $('#labelField_0')
       rightVideoWrap: $('#labelField_0')
       rightLabelWrap: $('#labelField_0')
-      uploadBackgroundImageFileField: $('#bg_img')
+      uploadBackgroundImageFileFieldElement: $('#bg_img')
       deleteBackgroundImageField: $('#deleteImage')
       columnWrapperElement: $('.column-wrapper')
       slide: $('#ids').data()
@@ -191,7 +191,62 @@ $ ->
               s.columnWrapperElement.css 'background-image', 'none'
               s.deleteBackgroundImageField.hide()
               $('.image-file-field').show()
-      #video button click
+      s.leftImageFileField.change (e) ->
+        if Presenation.imageValidate(s.leftImageFielField)
+          Presentation.show_error('#invalid_img')
+        else
+          s.leftColumnContentType.val('Image')
+          s.formElement.ajaxSubmit
+            url: 'update_contents'
+            type: 'put'
+            success: (data, status, xhr) ->
+              s.leftImageFielField.val('')
+              imageUrl = data[0].file_url.url
+              html = "<img src=#{imageUrl}">
+              s.leftBtnWrapElement.hide()
+              s.leftImageDiv.html(div)
+              s.leftImageWrap.show()
+      # delete  image for left column
+      s.leftImageDeleteBtn.on 'click', (e) ->
+        data =
+          id: s.slide.id
+          presentation_id: s.slide.presentationId
+          slide:
+            column_id: s.leftColumnId.val()
+        $.ajax
+        url: Routes.destroy_column_version_course_section_presentation_slide_path(s.slide.version, s.slide.csId,s.slide.presentationId, s.slide.id)
+        type: 'delete'
+        data: data
+        success: (data, status) ->
+          s.leftColumnId.val(data.slide.id)
+          s.leftImageWrap.hide()
+          s.leftBtnWrapElement.show()
+      #upload video column for left column
+      s.leftVideoFileField.change (e) ->
+        if Presenation.videoValidate(s.leftVideoFileField)
+          Presentation.show_error('#invalid_video')
+        else
+          s.leftColumnContentType.val('Video')
+          s.formElement.ajaxSubmit
+            url: 'update_contents'
+            type: 'put'
+            success: (data, status, xhr) ->
+              s.leftVideoFileField.val('')
+              videoUrl = data[0].file_url.url
+              s.leftBtnWrapElement.hide()
+              s.leftVideoWrap.show()
+              Presentation.initVideo('videoWrap_0', videoUrl)
+      # delete video for left column
+      s.leftVideoDeleteBtn.on 'click', (e) ->
+        data = id: s.slide.id, presentation_id: s.slide.presentationId, slide: column_id: s.leftColumnId.val()
+        $.ajax
+          url: Routes.destroy_column_version_course_section_presentation_slide_path(s.slide.version, s.slide.csId,s.slide.presentationId, s.slide.id)
+          type: 'delete'
+          data: data
+          success: (data, status) ->
+            s.leftColumnId.val(data.slide.id)
+            s.leftBtnWrapElement.show()
+            s.leftVideoWrap.hide()
     textValidate: (el) ->
       el.length
     imageValidate: (el)->
@@ -199,11 +254,13 @@ $ ->
     videoValidate: (el)->
       $.inArray(el.val().split('.').pop().toLowerCase(), ['mp4']) is -1
     show_error: (el) ->
-      console.log("test")
+      $(el).show()
     hide_error: (el) ->
-      console.log("test")
+      $(el).hide()
     initVideo: (el, url) ->
-      console.log("test")
+      jwplayer(el).setup
+        width: '100%'
+        file: url
     cancelActionFrom: (el) ->
       el.target.dataset.from is s.actions['add']
 
