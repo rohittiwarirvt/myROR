@@ -13,3 +13,25 @@ a {
 .hidden-area {
   display: none;
 }
+.navbar {
+  margin-bottom: 0;
+}
+
+.nav.nav-tabs.nav-justified {
+  padding-top: 2em;
+  background-color:#28396d;
+  a {
+    color: #fff;
+  &:hover{
+    color: #2F4C8F;
+    }
+  }
+
+  .active{
+    a {
+      color: #2F4C8F;
+      background: #d1d1d1;
+      border: 0;
+    }
+  }
+}
