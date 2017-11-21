@@ -149,7 +149,7 @@ $ ->
       #transition js
       $('a', '#transitionTypes').click (e)->
         $('#transition_val').val $(e.target).data('transition')
-        form = s.uploadBackgroundImageFileField.closest('form')
+        form = s.uploadBackgroundImageFileFieldElement.closest('form')
         form.ajaxSubmit
           url: 'update_settings'
           dataType: 'json'
@@ -169,8 +169,8 @@ $ ->
             type: 'put'
             success: (data, status) ->
               $('.image-file-field').hide()
-              imageUrl =  "url(#{data.background_img.url})"
-              imageName = data.background_img.url.split('/').pop()
+              imageUrl =  "url(#{data.background_image.url})"
+              imageName = data.background_image.url.split('/').pop()
               s.columnWrapperElement.css 'background-image', imageUrl
               $('#imageName').text(imageName)
               s.deleteBackgroundImageField.show()
@@ -182,7 +182,7 @@ $ ->
             id: s.slide.id
             slide:
               slide_setting_attributes:
-                background_img: ''
+                background_image: ''
           $.ajax
             url: 'delete_bg_img'
             type: 'put'

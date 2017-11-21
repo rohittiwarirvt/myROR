@@ -7,16 +7,16 @@ module SlideHelper
     "background-color: #{@slide_setting.background_color}"
   end
 
-  def background_img_file_name
-    File.basename(@slide_setting.background_img.path) if background_img_exist?
+  def background_image_file_name
+    File.basename(@slide_setting.background_image.path) if background_image_exist?
   end
 
-  def background_img_exist?
-    @slide_setting.background_img.path.present?
+  def background_image_exist?
+    @slide_setting.background_image.path.present?
   end
 
   def bg_img_title_div
-    background_img_exist? || 'hidden-area'
+    background_image_exist? || 'hidden-area'
   end
 
   def active_transition(transition)
@@ -24,15 +24,15 @@ module SlideHelper
   end
 
   def set_style
-    if background_img_exist?
-      set_background_img
+    if background_image_exist?
+      set_background_image
     else
       set_background_color
     end
   end
 
-  def set_background_img
-    "background-image : url(#{@slide_setting.background_img}"
+  def set_background_image
+    "background-image : url(#{@slide_setting.background_image}"
   end
 
   def slide_title_class
