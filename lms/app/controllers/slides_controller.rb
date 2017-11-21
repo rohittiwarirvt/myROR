@@ -87,7 +87,7 @@ class SlidesController < ApplicationController
     params.require(:slide).permit(:title, :number_of_columns,
      :slides_order_position,
       slide_setting_attributes: [
-        :background_color, :backgroud_img,
+        :background_color, :background_image,
         :transition, :id
         ],
      slide_contents_attributes: [
@@ -98,7 +98,7 @@ class SlidesController < ApplicationController
   def slide_settings_params
     params.require(:slide)
         .permit(slide_setting_attributes:
-            [:background_img,
+            [:background_image,
              :background_color,
              :transition,
              :id
