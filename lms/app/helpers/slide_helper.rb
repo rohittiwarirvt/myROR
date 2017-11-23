@@ -12,7 +12,7 @@ module SlideHelper
   end
 
   def background_image_exist?
-    @slide_setting.background_image.path.present?
+    @slide_setting.background_image.present?
   end
 
   def bg_img_title_div
