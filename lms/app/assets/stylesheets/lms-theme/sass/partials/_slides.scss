@@ -79,8 +79,15 @@
 
 .show-slide-content {
   .background-setting {
+    border: 1px solid #ddd;
+    padding: 15px 20px;
+    width: 100%;
+    margin: 25px 0 40px;
     .background-color,.background-image {
-      width: 15%;
+      h6 {
+        font-weight: bold;
+      }
+      width: 27%;
       margin-right: 20px;
       .color-pick {
         height: 50px;
@@ -93,6 +100,12 @@
       clear: both;
       margin: 1em 0;
       float: left;
+      label {
+        color: #666;
+        cursor: pointer;
+        font-weight: normal;
+        margin-left: 5px;
+      }
     }
 
     .transition {
@@ -107,21 +120,39 @@
       }
       .left-transition {
         background-position: 0 0;
+        &.active-transition {
+          background-position: -41px 0;
+        }
       }
       .top-transition {
         background-position: 0 -117px;
+        &.active-transition {
+          background-position: -41px -117px;
+        }
       }
       .bottom-transition {
         background-position: 0 -77px;
+        &.active-transition {
+          background-position: -41px -77px;
+        }
       }
       .blur-transition {
         background-position: 0 -157px;
+        &.active-transition {
+          background-position: -41px -157px;
+        }
       }
       .right-transition {
         background-position: 0 -37px;
+        &.active-transition {
+          background-position: -41px -37px;
+        }
       }
       .no-transition {
-        background-position: -41px -197px;
+        background-position: 0 -197px;
+        &.active-transition {
+          background-position: -41px -197px;
+        }
       }
     }
   }
@@ -142,8 +173,15 @@
   .slide-content-wrapper {
     .slide-heading {
       margin-top: 1em;
+      h4 {
+        font-weight: bold;
+        font-size: 1.7em;
+      }
     }
-
+    .slide-bold {
+      font-weight: bold;
+      font-size: 1.1em;
+    }
   }
 }
 
