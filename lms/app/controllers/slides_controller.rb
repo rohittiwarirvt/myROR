@@ -42,6 +42,11 @@ class SlidesController < ApplicationController
   end
 
   def delete_bg_img
+    if @slide.slide_setting.update_attributes(remove_background_image: true)
+      render json: { status: 200}, serializer: nil
+    else
+      render json: { status: 500}, serializer: nil
+    end
   end
 
   def update_ppt_title
@@ -61,6 +66,13 @@ class SlidesController < ApplicationController
   end
 
   def destroy_column
+    @slide = @slide.delete_column(delete_column_params[:column_id])
+    if @slide
+      slide_settings_params
+      render  json: { status: 200, slide: @slide}, serializer: nil
+    else
+      render json: {status: 400}, serializer: nil
+    end
   end
 
   def slide_clone
@@ -106,11 +118,11 @@ class SlidesController < ApplicationController
   end
 
   def slide_content_params
-    params[:slide][:slide_contents_attributes].each do |param|
-      file_url(param.first.to_s) if param.last['video_url'].present?
+    params[:slide][:slide_contents_attributes].each do |index, param|
+      file_url(index) if param['video_url'].present?
     end
     params.require(:slide)
-        .permit(slide_contents_attributes: [:content, :id, :file_url])
+        .permit(slide_contents_attributes: [:content, :type, :id, :file_url])
   end
 
   def slide_title_params
@@ -122,6 +134,8 @@ class SlidesController < ApplicationController
   end
 
   def delete_column(id)
+    column = SlideContent.find(id)
+    column && column.destroy
   end
 
   def file_url(index)
@@ -130,6 +144,7 @@ class SlidesController < ApplicationController
   end
 
   def delete_column_params
+    params.require(:slide).permit(:column_id)
   end
 
   def course_section

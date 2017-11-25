@@ -1,7 +1,7 @@
 # This files presentation
 #= require jquery.form
-#= require jwplayer
 #= require slides
+#= require jwplayer
 #= require tinymce-jquery
 
 $ ->
@@ -31,7 +31,7 @@ $ ->
       leftImageFileField: $('#rightImageFileField_0')
       leftImageDiv: $('#imageDiv_0')
       leftImageWrap: $('#rightColumnImage_0')
-      leftImageDeleteBtn:  $('#delete_video_0')
+      leftImageDeleteBtn:  $('#delete_img_0')
       leftVideoFileField: $('#rightVideoFileField_0')
       leftVideoDeleteBtn: $('#delete_video_0')
       leftVideoWrap: $('#rightColumnVideo_0')
@@ -113,7 +113,7 @@ $ ->
       s.leftTextColumnDelete.on 'click', ->
         data =
           id: s.slide.id
-          presentation_id: s.slide.presentation_id
+          presentation_id: s.slide.presentationId
           slide:
             column_id: s.leftColumnId.val()
         $.ajax
@@ -136,7 +136,7 @@ $ ->
       s.leftRemoveBtnElement.on 'click', ->
         data =
           id: s.slide.id
-          presentation_id: s.slide.presentation_id
+          presentation_id: s.slide.presentationId
           slide:
             column_id: s.leftColumnId.val()
         $.ajax
@@ -146,6 +146,11 @@ $ ->
           success: (data, status) ->
             s.leftLabelContent.hide()
             s.leftBtnWrapElement.show()
+      # show text input on edit click
+      s.leftEditBtnElement.on 'click', ->
+        s.leftCancelBtnElement.attr('data-from', 'edit')
+        s.leftLabelContent.hide()
+        s.leftTextFieldWrap.show()
       #transition js
       $('a', '#transitionTypes').click (e)->
         $('#transition_val').val $(e.target).data('transition')
@@ -192,7 +197,7 @@ $ ->
               s.deleteBackgroundImageField.hide()
               $('.image-file-field').show()
       s.leftImageFileField.change (e) ->
-        if Presenation.imageValidate(s.leftImageFielField)
+        if Presentation.imageValidate(s.leftImageFileField)
           Presentation.show_error('#invalid_img')
         else
           s.leftColumnContentType.val('Image')
@@ -200,11 +205,11 @@ $ ->
             url: 'update_contents'
             type: 'put'
             success: (data, status, xhr) ->
-              s.leftImageFielField.val('')
+              s.leftImageFileField.val('')
               imageUrl = data[0].file_url.url
-              html = "<img src=#{imageUrl}">
+              html = "<img src=#{imageUrl}>"
               s.leftBtnWrapElement.hide()
-              s.leftImageDiv.html(div)
+              s.leftImageDiv.html(html)
               s.leftImageWrap.show()
       # delete  image for left column
       s.leftImageDeleteBtn.on 'click', (e) ->
@@ -214,16 +219,16 @@ $ ->
           slide:
             column_id: s.leftColumnId.val()
         $.ajax
-        url: Routes.destroy_column_version_course_section_presentation_slide_path(s.slide.version, s.slide.csId,s.slide.presentationId, s.slide.id)
-        type: 'delete'
-        data: data
-        success: (data, status) ->
-          s.leftColumnId.val(data.slide.id)
-          s.leftImageWrap.hide()
-          s.leftBtnWrapElement.show()
+          url: Routes.destroy_column_version_course_section_presentation_slide_path(s.slide.version, s.slide.csId,s.slide.presentationId, s.slide.id)
+          type: 'delete'
+          data: data
+          success: (data, status) ->
+            s.leftColumnId.val(data.slide.id)
+            s.leftImageWrap.hide()
+            s.leftBtnWrapElement.show()
       #upload video column for left column
       s.leftVideoFileField.change (e) ->
-        if Presenation.videoValidate(s.leftVideoFileField)
+        if Presentation.videoValidate(s.leftVideoFileField)
           Presentation.show_error('#invalid_video')
         else
           s.leftColumnContentType.val('Video')

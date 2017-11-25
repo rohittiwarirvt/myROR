@@ -76,3 +76,33 @@ $ ->
     $('#titleEditorWrapper').hide()
     $('.slide-title-panel .slide-title').show()
     return
+
+  displayVideo = (elementID, settings) ->
+    defaults =
+      height: 315
+      width: 590
+      swfPath: '/jwplayer/player.swf'
+      controls: false
+      autostart: true
+    settings = $.extend({}, defaults, settings)
+    settings['width'] = '100%' if settings['responsive']
+    if $("##{elementID}").length > 0
+      jwplayer(elementID).setup
+        flashplayer: settings['swfPath']
+        allowscriptaccess: 'always'
+        files: settings['url']
+        height: settings['height']
+        width: settings['width']
+        autostart: settings['autostart']
+
+
+  $('.video').each ->
+    index = $(@).data('index')
+    video_url = $("#video_url_#{index}").val()
+    displayVideo("videoWrap_#{index}", {
+      url: video_url,
+      controls: true,
+      autostart: false,
+      height: '250',
+      width: '100%'
+    })
