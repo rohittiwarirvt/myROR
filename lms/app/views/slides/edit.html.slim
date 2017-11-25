@@ -31,7 +31,7 @@ section.presentation-main-wrapper
             .col-md-3
               = render "slide_listing"
             .col-md-9
-              .outer-wrapper
+              .outer-wrapper.clearfix
                 = form_for @slide, url: version_course_section_presentation_slide_path, html: {method: 'put'} do |f|
                   = f.hidden_field :id, id: 'slide_id'
                   = f.hidden_field :presentation_id, id: 'presentation_id'
@@ -54,7 +54,7 @@ section.presentation-main-wrapper
                           = link_to '', 'javascript:void(0);', class: 'remove-title hidden-area'
                     .slide-two-column.save-btn
                       span.slide-bold= localize('form.slide_content_label')
-                      .column-wrapper*{style: "#{set_style}"}
+                      .column-wrapper.clearfix*{style: "#{set_style}"}
                         .slide-title-panel
                           .column-heading
                             .slide-title.editor-desc*{class: "#{slide_title_class}"}
