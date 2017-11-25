@@ -6,7 +6,7 @@
       .custom-upload
         input*{ type: 'button', value: 'Text', id: "addTextLeft_#{s.index}"}
       .custom-upload
-        = s.file_field :file_url, id: "righImageFileField_#{s.index}"
+        = s.file_field :file_url, id: "rightImageFileField_#{s.index}"
         .upload-file
           span= localize('form.image_label')
       .custom-upload
@@ -26,7 +26,10 @@
       = link_to "", 'javascriopt:void(0)', class: 'remove-content', id: "removeColumn_#{s.index}"
     div*{id: "rightColumnImage_#{s.index}", class: "#{img_content_exist(@slide_contents[s.index])} content-img-wrap"}
       .presentation-img-wrap
-        .img* {id: "imageDiv_#{s.index}"}
-          img* {src: "#{file_path(@slide_contents[s.index])}"}
+        .img*{id: "imageDiv_#{s.index}"}
+          img*{src: "#{file_path(@slide_contents[s.index])}"}
         = link_to "", 'javascript:void(0)', class: 'remove-content', id: "delete_img_#{s.index}"
     div*{id: "rightColumnVideo_#{s.index}", class: "#{video_content_exist(@slide_contents[s.index])} content-video-wrap"}
+      = hidden_field_tag "video_url_#{s.index}", "#{file_path(@slide_contents[s.index])}", class: 'video', data: { index: "#{s.index}"}
+      div*{id: "videoWrap_#{s.index}"}
+      = link_to "", 'javascript:void(0)', class: 'remove-content', id: "delete_video_#{s.index}"

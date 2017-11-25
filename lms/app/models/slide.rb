@@ -21,4 +21,12 @@ class Slide < ApplicationRecord
     return if slide_setting
     create_slide_setting(background_color: '#fff', transition: 'slideNone')
   end
+
+  def delete_column(id)
+    column = SlideContent.find_by_id(id)
+    return nil unless column
+    orientation = column.orientation
+    column.destroy
+    slide_contents.create(orientation: orientation)
+  end
 end

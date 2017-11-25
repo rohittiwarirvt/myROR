@@ -51,7 +51,7 @@ module SlideHelper
     column.type.eql?('Image') ? '' : 'hidden-area'
   end
   def video_content_exist(column)
-    column.type.eql?('Video') ? '' : 'hidden-aread'
+    column.type.eql?('Video') ? '' : 'hidden-area'
   end
 
   def file_path(column)
