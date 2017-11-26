@@ -37,26 +37,39 @@ $ ->
       leftVideoWrap: $('#rightColumnVideo_0')
       leftLabelWrap: $('#labelField_0')
       # right column elements
-      rightCancelBtnElement: $('#labelField_0')
-      rightColumnContent: $('#labelField_0')
-      rightColumnContentType: $('#labelField_0')
-      rightLabelContent: $('#labelField_0')
-      rightContentDiv: $('#labelField_0')
-      rightEditBtnElement: $('#labelField_0')
-      rightRemoveBtnElement: $('#labelField_0')
-      rightBtnWrapElement: $('#labelField_0')
-      rightTextFieldWrap: $('#labelField_0')
-      rightTextBtn: $('#labelField_0')
-      rightTextWrap: $('#labelField_0')
-      rightTextColumnDelete: $('#labelField_0')
-      rightImageFielField: $('#labelField_0')
-      rightImageDiv: $('#labelField_0')
-      rightImageWrap: $('#labelField_0')
-      rightImageDeleteBtn: $('#labelField_0')
-      rightVideoFielField: $('#labelField_0')
-      rightVideoDeleteBtn: $('#labelField_0')
-      rightVideoWrap: $('#labelField_0')
-      rightLabelWrap: $('#labelField_0')
+      # right column elements
+      saveRightTextBtnElement: $('#saveTextLeft_1')
+      rightCancelBtnElement: $('#cancelTextLeft_1')
+      rightColumnId: $('#col_1')
+      rightColumnContent: $('#textContent_1')
+      rightColumnContentType: $('#contentType_1')
+      rightLabelContent: $('#contentLabel_1')
+      rightContentDiv: $('#contentDiv_1')
+      rightEditBtnElement: $('#editColumn_1')
+      rightRemoveBtnElement: $('#removeColumn_1')
+      rightBtnWrapElement: $('#btnBox_1')
+      rightTextFieldWrap: $('#textField_1')
+      rightTextBtn: $('#addTextLeft_1')
+      rightTextWrap: $('#textDiv_1')
+      rightTextColumnDelete: $('#removeColumn_1')
+      rightImageFileField: $('#rightImageFileField_1')
+      rightImageDiv: $('#imageDiv_1')
+      rightImageWrap: $('#rightColumnImage_1')
+      rightImageDeleteBtn: $('#delete_img_1')
+      rightVideoFileField: $('#rightVideoFileField_1')
+      rightVideoDeleteBtn: $('#delete_video_1')
+      rightVideoWrap: $('#rightColumnVideo_1')
+      rightLabelWrap: $('#labelField_1')
+      #manifest Url adding to slide right
+      rightVideoManifestButton: $('#leftVideoManifestField_1'),
+      rightVideoManifestWrap: $('#manifestVideoUrl_1')
+      rightVideoManifestEditElement: $('#editManifestColumn_1')
+      rightVideoManifestRemoveElement: $('#removeManifestColumn_1')
+      rightVideoMainfestContentDiv: $('#manifest_file_1')
+      saveRightManifestBtnElement: $('#saveManifestTextLeft_1')
+      rightCancelManifestBtnElement: $('#cancelManifestTextLeft_1')
+      rightManifestContentDiv: $('#manifestContentDiv_1')
+      rightManifestLabelContent: $('#manifestContentLabel_1')
       uploadBackgroundImageFileFieldElement: $('#bg_img')
       deleteBackgroundImageField: $('#deleteImage')
       columnWrapperElement: $('.column-wrapper')
@@ -162,8 +175,55 @@ $ ->
           success: (response) ->
             $(e.target).siblings().removeClass('active-transition')
             $(e.target).addClass('active-transition')
-
-    bindDynamicUIActions: ->
+      # right column functions
+      # save right column text content
+      s.saveRightTextBtnElement.on 'click', ->
+        data = tinyMCE.activeEditor.getContent()
+        textData = tinyMCE.activeEditor.getContent({format: 'text'})
+        if textData.trim().length > 500
+          alert s.saveRightTextBtnElement.data('validationmessage')
+        else
+          if Presentation.textValidate(data)
+            s.rightColumnContent.val(data)
+            s.rightColumnContentType.val('Text')
+            s.formElement.ajaxSubmit
+              url: 'update_contents'
+              type: 'put'
+              success:(data, status) ->
+                s.rightTextFieldWrap.hide()
+                s.rightContentDiv.html(data[1].content)
+                s.rightLabelContent.show()
+          else
+          Presentation.show_error('#invalid_content')
+      # delete right column text content
+      s.rightTextColumnDelete.on 'click', ->
+        data = id: s.slide_id, presentation_id: s.presentation_id, slide: column_id: s.rightColumnId.val()
+        $.ajax
+          url: Routes.destroy_column_version_course_section_presentation_slide_path(s.slide.version, s.slide.csId,s.slide.presentationId, s.slide.id)
+          type: 'delete'
+          data: data
+          success: (data, status) ->
+            s.rightColumnId.val(data.slide.id)
+            s.rightLabelContent.hide()
+            s.rightBtnWrapElement.show()
+      # show text editor on add text
+      s.rightTextBtn.on 'click', ->
+        s.rightCancelBtnElement.attr('data-from', 'add')
+        s.rightBtnWrapElement.hide()
+        s.rightTextFieldWrap.show()
+      # hide text editor on cancel
+      s.rightCancelBtnElement.on 'click', (e) ->
+        s.rightTextFieldWrap.hide()
+        if Presentation.cancelActionFrom(e)
+          s.rightBtnWrapElement.show()
+        else
+          s.rightLabelContent.show()
+      # show text input on edit click
+      s.rightEditBtnElement.on 'click', ->
+        s.rightCancelBtnElement.attr('data-from', 'edit')
+        s.rightLabelContent.hide()
+        s.rightTextFieldWrap.show()
+     bindDynamicUIActions: ->
       #upload backgroudn image for slide
       s.uploadBackgroundImageFileFieldElement.bind 'change', ->
         if Presentation.imageValidate(s.uploadBackgroundImageFileFieldElement)
@@ -252,6 +312,64 @@ $ ->
             s.leftColumnId.val(data.slide.id)
             s.leftBtnWrapElement.show()
             s.leftVideoWrap.hide()
+      # Right Column image and video operations
+      # Right column image upload
+      s.rightImageFileField.change (e) ->
+        if Presentation.imageValidate(s.rightImageFileField)
+          Presentation.show_error('#invalid_img')
+        else
+          loader(true)
+          s.rightColumnContentType.val('Image')
+          s.formElement.ajaxSubmit
+            url: 'update_contents'
+            type: 'put'
+            success:(data, status, xhr) ->
+              s.rightImageFileField.val('')
+              loader(false)
+              imageUrl = data[1].file_url.url
+              html = "<img src=#{imageUrl}>"
+              s.rightBtnWrapElement.hide()
+              s.rightImageDiv.html(html)
+              s.rightImageWrap.show()
+      # Delete image from right column
+      s.rightImageDeleteBtn.on 'click', (e) ->
+        data = id: s.slide.id, presentation_id: s.slide.presentationId, slide: column_id: s.rightColumnId.val()
+        $.ajax
+          url: Routes.destroy_column_version_course_section_presentation_slide_path(s.slide.version, s.slide.csId, s.slide.presentationId, s.slide.id)
+          type: 'delete'
+          data: data
+          success: (data, status) ->
+            s.rightColumnId.val(data.slide.id)
+            s.rightImageWrap.hide()
+            s.rightBtnWrapElement.show()
+      # upload video for right column
+      s.rightVideoFileField.change (e) ->
+        if Presentation.videoValidate(s.rightVideoFileField)
+          Presentation.show_error('#invalid_video')
+        else
+          loader(true)
+          s.rightColumnContentType.val('Video')
+          s.formElement.ajaxSubmit
+            url: 'update_contents'
+            type: 'put'
+            success:(data, status, xhr) ->
+              s.rightVideoFileField.val('')
+              loader(false)
+              videoUrl = data[1].file_url.url
+              s.rightBtnWrapElement.hide()
+              s.rightVideoWrap.show()
+              Presentation.initVideo('videoWrap_1', videoUrl)
+      # delete video for right column
+      s.rightVideoDeleteBtn.on 'click', (e) ->
+        data = id: s.slide.id, presentation_id: s.slide.presentationId, slide: column_id: s.rightColumnId.val()
+        $.ajax
+          url: Routes.destroy_column_version_course_section_presentation_slide_path(s.slide.version, s.slide.csId,s.slide.presentationId, s.slide.id)
+          type: 'delete'
+          data: data
+          success: (data, status) ->
+            s.rightColumnId.val(data.slide.id)
+            s.rightBtnWrapElement.show()
+            s.rightVideoWrap.hide()
     textValidate: (el) ->
       el.length
     imageValidate: (el)->
