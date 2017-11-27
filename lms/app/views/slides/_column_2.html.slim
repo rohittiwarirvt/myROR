@@ -1,2 +1,36 @@
 = f.fields_for :slide_contents, @slide_contents do |s|
-
+  li#right.two-column-slide
+    .content-uploaders.column-content-right*{id: "btnBox_#{s.index}", class: "#{content_exist(@slide_contents[s.index])}"}
+      = s.hidden_field :type, id: "contentType_#{s.index}"
+      = s.hidden_field :orientation
+      .custom-upload
+        input*{type:'button', value:localize('form.text_label'), id: "addTextLeft_#{s.index}"}
+      .custom-upload
+        = s.file_field :file_url, id: "rightImageFileField_#{s.index}"
+        .upload-file
+          span= localize('form.image_label')
+      .custom-upload
+        = s.file_field :video_url, id: "rightVideoFileField_#{s.index}"
+        .upload-file
+          span= localize('form.video_label')
+    .slide-name-wrap.hidden-area*{id: "textField_#{s.index}"}
+      = s.hidden_field :id , id: "col_#{s.index}"
+      = s.text_area :content, id: "textContent_#{s.index}", class: 'tinymce'
+      = link_to localize('form.cancel'), 'javascript:void(0)', id: "cancelTextLeft_#{s.index}", class: 'pull-right cancel'
+      = link_to localize('form.save'), 'javascript:void(0)', id: "saveTextLeft_#{s.index}", class: 'pull-left save', data: { validationMessage: localize('form.text_validation_message')}
+    .right-column-text-save.hidden-area
+    .right-column-text*{id: "contentLabel_#{s.index}", class: "#{text_content_exist(@slide_contents[s.index])}"}
+      .right-column-text-content.editor-desc
+        div*{id: "contentDiv_#{s.index}"}
+          = column_content(@slide_contents[s.index]).html_safe
+      = link_to('', 'javascript:void(0)', class: 'edit-content', id: "editColumn_#{s.index}")
+      = link_to('', 'javascript:void(0)', class: 'remove-content', id: "removeColumn_#{s.index}")
+    .content-img-wrap*{id: "rightColumnImage_#{s.index}", class: "#{img_content_exist(@slide_contents[s.index])}"}
+      .presentation-img-wrap
+        .img*{id: "imageDiv_#{s.index}"}
+          img*{src:"#{file_path(@slide_contents[s.index])}"}
+        = link_to('', 'javascript:void(0)', class: 'remove-content', id: "delete_img_#{s.index}")
+    div*{id:"rightColumnVideo_#{s.index}", class: "#{video_content_exist(@slide_contents[s.index])} content-video-wrap"}
+      = hidden_field_tag "video_url_#{s.index}", "#{file_path(@slide_contents[s.index])}", class: 'video', data:{index: "#{s.index}"}
+      div*{id: "videoWrap_#{s.index}"}
+      = link_to('', 'javascript:void(0)', class: 'remove-content', id: "delete_video_#{s.index}")

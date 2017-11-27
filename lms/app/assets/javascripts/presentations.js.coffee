@@ -318,14 +318,12 @@ $ ->
         if Presentation.imageValidate(s.rightImageFileField)
           Presentation.show_error('#invalid_img')
         else
-          loader(true)
           s.rightColumnContentType.val('Image')
           s.formElement.ajaxSubmit
             url: 'update_contents'
             type: 'put'
             success:(data, status, xhr) ->
               s.rightImageFileField.val('')
-              loader(false)
               imageUrl = data[1].file_url.url
               html = "<img src=#{imageUrl}>"
               s.rightBtnWrapElement.hide()
@@ -347,14 +345,12 @@ $ ->
         if Presentation.videoValidate(s.rightVideoFileField)
           Presentation.show_error('#invalid_video')
         else
-          loader(true)
           s.rightColumnContentType.val('Video')
           s.formElement.ajaxSubmit
             url: 'update_contents'
             type: 'put'
             success:(data, status, xhr) ->
               s.rightVideoFileField.val('')
-              loader(false)
               videoUrl = data[1].file_url.url
               s.rightBtnWrapElement.hide()
               s.rightVideoWrap.show()
