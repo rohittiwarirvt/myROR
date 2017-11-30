@@ -1,0 +1,15 @@
+= form_for(@category) do |f|
+  .field.form.horizontal.new-category.clearfix
+    .form-group
+      = f.label('', localize('form.name'), class: 'mandatory col-sm-2 control-label')
+      .col-sm-8
+        = f.text_field :name, placeholder: localize('form.name_place'), maxlength: '55', class: 'form-control', data: {message: localize('form.name_error_message')}
+        - if @category.errors.any?
+          #error_explanation.error.error_flash
+            ul
+              - @category.errors.full_messages.each do |message|
+                li= message
+    .form-group
+      .col-sm-8.col-sm-offset-2
+        = f.submit localize("form.#{action_name}"), class: 'btn btn-primary'
+        = link_to localize('cancel'), categories_path

@@ -1,0 +1,6 @@
+p#notice= notice
+p
+  strong = localize('form.name')
+  = @category.name
+= link_to localize('edit'), edit_category_path(@category)|
+= link_to localize('back'), categories_path
