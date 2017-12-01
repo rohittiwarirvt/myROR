@@ -1,0 +1,22 @@
+en:
+  categories:
+    new_form: 'New Category'
+    form:
+      name: 'Category Name'
+      name_place: 'Category Name'
+      submit: 'Submit'
+      save: 'Save'
+      new: 'Add'
+      edit: 'Edit'
+      create: 'Add'
+      update: 'Edit'
+      name_error_message: 'Please enter category name'
+    edit_form: 'Edit Category'
+    list_categories: 'Category Listing'
+    add: 'Add Category'
+    edit: 'Edit'
+    destroy: 'Destroy'
+    back: 'Back'
+    action: 'Action'
+    sr_no: 'Sr no.'
+    cancel: 'Cancel'
