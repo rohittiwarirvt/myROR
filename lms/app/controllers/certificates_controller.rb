@@ -1,8 +1,9 @@
 class CertificatesController < ApplicationController
   layout 'fullpage'
 
+
   def index
-    @certificates = Certificates.all
+    @certificates = Certificate.all
   end
 
   def edit
