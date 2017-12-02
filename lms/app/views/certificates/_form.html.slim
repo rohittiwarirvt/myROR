@@ -1,0 +1,57 @@
+= form_for(@certificate) do |f|
+  .field.form-horizontal.new-certificate.clearfix
+    - if @certificate.errors.any?
+      #error_explanation.error.error_flush
+        ul
+          - @certificate.errors.full_messages.each do |error|
+            li= message
+    #publishCertificateSuccessMsg
+      .alert.alert-success.hidden-area= localize(:publish_success_message)
+    #publishCertificateErrorMsg
+      .alert.alert-danger.hidden-area
+        p= localize(:publish_condition)
+    #unpublishCertificateSuccessMsg
+      .alert.alert-success.hidden-area= localize(:unpublish_success_message)
+    .form-group
+      .col-md-10.publish-btn-wrap
+      - publish_unplish = @certificate.published ? localize(:unpublish_certificate) : localize(:publish_certificate)
+      = hidden_field_tag :certifcicate_id, @certificate.id
+      = hidden_field_tag :publish, @certificate.published
+      = link_to publish_unpublish, 'javascript:void(0)', class: 'btn btn-primary pull-right', id: 'publish_certificate',
+      data: { unpublish_message: localize(:unpublish_confirm_message)}
+    .form-group
+      = f.label('', localize('form.title'), class: 'mandatory col-md-2 control-label')
+      .col-md-8
+        = f.text_field :title, placeholder: localize('form.title_place'), maxlength: '50', class: 'form-control', data: { message: localize('form.title')}
+    .form-group
+      = f.label('', localize('form.short_description'), class:'mandatory col-md-2 control-label')
+      .col-md-8
+        = f.text_area :short_description, placeholder: localize('form.short_description_place'), class: 'form-control'
+      span.character-count-error
+      span.short-error
+    .form-group
+      = f.label('', localize('form.description'), class:'col-md-2 control-label')
+      .col-md-8
+        = f.text_area :description, placeholder: localize('form.description_place'), class: 'form-control'
+    .form-group
+      = f.label(:role_label, localize('form.role'), class: 'mandatory col-md-2 control-label')
+      .col-md-8
+        = hidden_field_tag 'certificate_role_id', @certificate.role_id
+        .radio-btn-group
+          - @roles.each do |role|
+            = f.radio_button('role_id', role.id)
+            = f.label(:role_name, role.name, class: 'col-md-2 control-label')
+    .form-group
+      = f.label('', localize('form.amount'), class: 'col-md-2 control-label')
+      .col-md-8
+        = f.text_field :amount, placeholder: localize('fomr.amoutn_place'), class: 'form-control', data: {message: localize('form.invalid_amount'), only_digits:localize('form.only_digits')}
+    .form-group
+      = f.label('', localize('form.courses'), class: 'mandatory col-md-2 control-label')
+      .col-md-8
+
+    .form-group
+      .col-md-8.colm-md-offset-2
+        .actions
+          = f.submit localize("form.#{action_name}"), class: 'btn btn-primary submit-certificate', data: { empty_title: localize('empty_title_message'), empty_file: localize('file_field_error_message'), empty_checkbox: localize('checkbox_validation'), invalid_file_format: localize('invalid_file_format'), :disabled_with=> localize('form.wait_message'), empty_role: localize('empty_role_message'), role_message: localize('form.character_count_error'), empty_short_Desc_message: localize('empty_short_desc_message')}
+
+

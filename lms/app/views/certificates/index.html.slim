@@ -1,0 +1,23 @@
+.custom-page-header
+  .container
+    h1 = localize('list_certificates')
+section.course-listing
+  .container
+    .middle-heading.clearfix
+      = link_to localize('add'), new_certificate_path, {class: 'pull-right btn btn-primary'}
+    span
+    .result
+      table.table.table-stripped.table-bordered.table-condensed.table-hover
+        thead
+          tr
+            th= localize('sr_no')
+            th= localize('form.title')
+            th= localize('action')
+        tbody
+          - @certificates.each_with_index do |certificate, index|
+            tr
+              td= index+1
+              td= certificate.title
+              td
+                = link_to localize('edit'), edit_certificate_path(certificate), class: 'btn btn-primary btn-sm'
+                = link_to localize('delete'), certificate_path(certificate), data: { confirm: localize('delete_message')}, method: :delete, class: 'btn btn-sm btn-danger'
