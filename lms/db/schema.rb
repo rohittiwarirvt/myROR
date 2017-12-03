@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170610152615) do
+ActiveRecord::Schema.define(version: 20171203084123) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "option"
@@ -46,10 +46,16 @@ ActiveRecord::Schema.define(version: 20170610152615) do
   end
 
   create_table "certificates", force: :cascade do |t|
-    t.string "name"
-    t.string "file"
-    t.text   "short_description"
-    t.text   "description"
+    t.string   "name"
+    t.string   "file"
+    t.text     "short_description"
+    t.text     "description"
+    t.boolean  "editable",                                  default: true
+    t.boolean  "published",                                 default: true
+    t.decimal  "amount",            precision: 5, scale: 2
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "course_sections", force: :cascade do |t|
@@ -185,6 +191,17 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.index ["role_id"], name: "index_roles_permissions_on_role_id"
   end
 
+  create_table "slide_contents", force: :cascade do |t|
+    t.text     "content"
+    t.string   "orientation"
+    t.string   "file_url"
+    t.string   "type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "slide_id"
+    t.index ["slide_id"], name: "index_slides_contents_on_slide_id"
+  end
+
   create_table "slide_settings", force: :cascade do |t|
     t.string   "background_color", default: "#fffff"
     t.string   "background_image"
@@ -203,17 +220,6 @@ ActiveRecord::Schema.define(version: 20170610152615) do
     t.datetime "updated_at",                  null: false
     t.integer  "presentation_id"
     t.index ["presentation_id"], name: "index_slides_on_presentation_id"
-  end
-
-  create_table "slides_contents", force: :cascade do |t|
-    t.text     "content"
-    t.string   "orientation"
-    t.string   "file_url"
-    t.string   "type"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "slide_id"
-    t.index ["slide_id"], name: "index_slides_contents_on_slide_id"
   end
 
   create_table "test1", force: :cascade do |t|

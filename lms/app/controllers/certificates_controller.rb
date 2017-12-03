@@ -1,6 +1,7 @@
 class CertificatesController < ApplicationController
   layout 'fullpage'
 
+  before_action :certificate_roles, only: [:new, :edit, :create]
 
   def index
     @certificates = Certificate.all
@@ -27,6 +28,10 @@ class CertificatesController < ApplicationController
   end
 
   def certificate_params
-    params.require(:certificate).permit(:title, :short_description, :description, :file, :role_id, :amount)
+    params.require(:certificate).permit(:name, :short_description, :description, :file, :role_id, :amount)
+  end
+
+  def certificate_roles
+    @roles = Role.order('title')
   end
 end
