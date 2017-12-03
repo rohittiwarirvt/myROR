@@ -14,7 +14,7 @@
       .alert.alert-success.hidden-area= localize(:unpublish_success_message)
     .form-group
       .col-md-10.publish-btn-wrap
-      - publish_unplish = @certificate.published ? localize(:unpublish_certificate) : localize(:publish_certificate)
+      - publish_unpublish = @certificate.published ? localize(:unpublish_certificate) : localize(:publish_certificate)
       = hidden_field_tag :certifcicate_id, @certificate.id
       = hidden_field_tag :publish, @certificate.published
       = link_to publish_unpublish, 'javascript:void(0)', class: 'btn btn-primary pull-right', id: 'publish_certificate',
@@ -22,7 +22,7 @@
     .form-group
       = f.label('', localize('form.title'), class: 'mandatory col-md-2 control-label')
       .col-md-8
-        = f.text_field :title, placeholder: localize('form.title_place'), maxlength: '50', class: 'form-control', data: { message: localize('form.title')}
+        = f.text_field :name, placeholder: localize('form.title_place'), maxlength: '50', class: 'form-control', data: { message: localize('form.title')}
     .form-group
       = f.label('', localize('form.short_description'), class:'mandatory col-md-2 control-label')
       .col-md-8
@@ -40,11 +40,11 @@
         .radio-btn-group
           - @roles.each do |role|
             = f.radio_button('role_id', role.id)
-            = f.label(:role_name, role.name, class: 'col-md-2 control-label')
+            = f.label(:role_name, role.title, class: 'col-md-2 control-label')
     .form-group
       = f.label('', localize('form.amount'), class: 'col-md-2 control-label')
       .col-md-8
-        = f.text_field :amount, placeholder: localize('fomr.amoutn_place'), class: 'form-control', data: {message: localize('form.invalid_amount'), only_digits:localize('form.only_digits')}
+        = f.text_field :amount, placeholder: localize('form.amount_place'), class: 'form-control', data: {message: localize('form.invalid_amount'), only_digits:localize('form.only_digits')}
     .form-group
       = f.label('', localize('form.courses'), class: 'mandatory col-md-2 control-label')
       .col-md-8
