@@ -1,6 +1,6 @@
 class CertificatesController < ApplicationController
   layout 'fullpage'
-
+  before_action :find_certificates
   before_action :certificate_roles, only: [:new, :edit, :create]
 
   def index
