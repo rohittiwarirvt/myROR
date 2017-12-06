@@ -1,6 +1,8 @@
 class CertificatesController < ApplicationController
   layout 'fullpage'
-  before_action :find_certificates
+  before_action :find_certificates, except: [:index, :new, :create, :publish]
+  before_action :find_published_course, except: [:index, :show, :destroy]
+  before_action :certificate_published_courses, only: [:edit, :new, :create]
   before_action :certificate_roles, only: [:new, :edit, :create]
 
   def index
