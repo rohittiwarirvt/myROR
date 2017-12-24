@@ -48,7 +48,7 @@
     .form-group
       = f.label('', localize('form.courses'), class: 'mandatory col-md-2 control-label')
       .col-md-8
-
+        = select_tag('certificate[course_ids][]', options_for_select(@courses.collect {|course| [course.name, course.id]},@certificate.courses.collect { |certificate_course| certificate_course.id}), {multiple: true, id: 'courses', class: "#{!@certificate.editable && 'disable_checkbox'}"})
     .form-group
       .col-md-8.colm-md-offset-2
         .actions

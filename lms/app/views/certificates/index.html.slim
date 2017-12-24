@@ -17,7 +17,7 @@ section.course-listing
           - @certificates.each_with_index do |certificate, index|
             tr
               td= index+1
-              td= certificate.title
+              td= certificate.name
               td
                 = link_to localize('edit'), edit_certificate_path(certificate), class: 'btn btn-primary btn-sm'
                 = link_to localize('delete'), certificate_path(certificate), data: { confirm: localize('delete_message')}, method: :delete, class: 'btn btn-sm btn-danger'
