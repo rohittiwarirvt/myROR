@@ -1,0 +1,61 @@
+section
+  .custom-page-header
+    h1
+      = localize('list.main_heading')
+    h4
+      = localize('list.secondary_heading')
+  .course-index
+    .course-container.clearfix
+      h3.pull-left.red-heading
+        = @assessment.name
+        = link_to '', edit_version_course_section_assessment_path(@version, @assessment.course_section_id, @assessment), class: 'edit-assessment'
+
+      - unless @version.published
+        .actions.pull-right
+          = link_to localize('add_question'), new_assessment_question_path(@assessment.id), {class: "btn btn-primary #{!@version.editable && 'disabled'}"}
+          = link_to localize('done'), syllabus_version_path(@version), {class: 'btn btn-primary'}
+    .clearfix
+    h2.center-text
+      = localize('list.assessment_overview_text')
+    .questions-list-box
+      .criteria-box
+        span
+          = localize('list.passing_criteria')
+          = "#{@assessment.passing_percentage}%"
+        span
+          = localize('list.required_text')
+          = required_question_count(@assessment.number_of_displayed_questions)
+        span
+          = localize('list.add_text')
+          = @total_questions
+      .table-heading
+        span
+          = localize('list.sr_no')
+        span
+          = localize('list.question')
+        span.action-head.pull-right
+          = localize('list.action')
+      ul.accordion-items*{class: eligible_reorder_question,  data: { assesment_id: @assessment.id }}
+        - @questions.each_with_index do |question, index|
+          li*{class: 'question', data: { question_id: question.id } }
+            span.sr-no
+              = index + 1
+            span.question-text
+              = strip_tags(question.title)
+            span.group-btns.pull-right
+              - unless @version.published
+                = link_to localize('edit'), edit_assessment_question_path(@assessment, question), class: 'btn btn-sm btn-danger btn-edit'
+                = link_to localize('delete'), assessment_question_path(@assessment, question), data: {confirm: localize('list.confirm_delete_text')}, method: :delete, class: "btn btn-sm btn-danger btn-delete #{!@version.editable && 'disabled'}"
+            .accord-content
+              - order_options(question.answers).each do |answer|
+                - if answer.image.present?
+                  .image-ans
+                    img{src: answer.image}
+                    - correct_answer(answer.correct_answer)
+                - else
+                  .ans-wrap
+                    - if question.question_category.name == 'descriptive'
+                      = localize('form.number_of_inputs')
+                    = format_option(answer.option)
+                    - correct_answer(answer.correct_answer)
+  = paginate @questions

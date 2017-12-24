@@ -1,0 +1,15 @@
+= nested_form_for(@question, url: assessment_questions_path(params[:assessment_id])) do |f|
+  .loader
+  - if @question.errors.any?
+    #error_explanation.error
+      ul
+        - @question.errors.full_messages.each do |message|
+          li= message
+  .form-group
+    = f.hidden_field(:assessment_id, value: params[:assessment_id])
+    = f.label('', localize('form.question'), class: 'mandatory')
+    = f.text_area :title, rows: 10,cols: 20, placeholder: localize('form.question_title' ), class: 'tinymce'
+    span.title-error.error
+  .form-group.question-type
+    = f.label('', localize('form.question_type'), class: 'mandatory')
+    = f.collection_select :question_category_id, category_list(@questioncategories), :first, :last, {prompt: localize('form.select_category')}, {class: 'form-control required question-category-list'}

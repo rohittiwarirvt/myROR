@@ -1,0 +1,38 @@
+section
+  .custom-page-header
+    h1= localize(:new_assessment)
+  = simple_form_for(@assessment, url: {action: 'create'}) do |f|
+      - if @assessment.errors.any?
+        #error_explanation.error
+          ul
+            - @assessment.errors.full_messages.each do |message|
+              li= message
+      .form-group
+        = hidden_field_tag :section_type, params[:type]
+        = f.label('', localize(:name), class: 'mandatory required')
+        = f.text_field :name, class: 'form-control', maxlength: '50'
+      .form-group.description-form-group
+        = f.label('', localize(:description))
+        = f.text_area :description, rows: 10, cols: 20, class: 'form-control', placeholder: localize(:description)
+        span.error
+      .form-group
+        = f.label('', localize(:assessment_type))
+        = f.select :assessment_type, options_for_select(Assessment::TYPES.values), {prompt: localize(:assessment_prompt)}, {class: 'form-control'}
+      #testAssessmentRadio.form-group
+        .control-group
+          label.span4.control-label*{for: 'inputTitle'}
+          = localize(:any_passing_criteria)
+        .radio-group
+          = f.radio_button :passing_criteria, Assessment::PASSING_CRITERIA_YES, checked: true, id: 'passingCriteriaYes'
+          = label_tag(:yes, localize(:test_yes), for: 'passingCriteriaYes')
+          = f.radio_button :passing_criteria, Assessment::PASSING_CRITERIA_NO, id: 'passingCriteriaNo'
+          = label_tag(:no, localize(:test_no), for: 'passingCriteriaNo')
+        #passingCriteria
+          = f.input :passing_percentage, class: 'tinymce passingPercentage', placeholder: localize(:test_number), value: '0.0', input_html: {min: '0'}
+          = f.input :number_of_displayed_questions, class: 'noOfQuestions', placeholder: '', value: '0'
+      .control-group.assessment-checkbox
+        = f.input :details_page, {id: 'assessment_details_page', type: 'checkbox', label: localize(:details_page)}
+        = f.input :randomize, {id: 'assessment_randomize', type: 'checkbox', label: localize(:random)}
+      br
+      = f.submit localize(:submit), class: 'btn btn-primary submit-form', data: { message: localize(:blank_field_error) }
+      = link_to localize(:cancel), syllabus_version_path(@version)

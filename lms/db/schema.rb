@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(version: 20171203084123) do
     t.index ["question_category_id"], name: "index_questions_on_question_category_id"
   end
 
-  create_table "questions_categories", force: :cascade do |t|
+  create_table "question_categories", force: :cascade do |t|
     t.string "name"
   end
 

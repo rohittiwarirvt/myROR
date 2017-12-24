@@ -165,7 +165,7 @@ class AddTablesForlmsBackend < ActiveRecord::Migration[5.0]
     add_reference :assessments, :course_section, foreign_key: true
 
     #questions_categories
-    create_table :questions_categories do |t|
+    create_table :question_categories do |t|
       t.string  :name
     end
     #questions

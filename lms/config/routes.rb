@@ -31,6 +31,7 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :section_assessments, controller: :assessments, type: 'section', only: [:new]
       resources :assessments
       resources :custom_contents
       resources :interactive_slides do
@@ -50,6 +51,12 @@ Rails.application.routes.draw do
     resources :notes, controller: 'resources', type: 'Note'
     resources :quotes, controller: 'resources', type: 'Quote'
     resources :evaluation_questions, except: [:show, :new]
+  end
+  resources :assessments do
+    resources :questions, except: [:show] do
+      put :update_position
+      resources :answers, only: [:destroy]
+    end
   end
   resources :categories
   resources :certificates
