@@ -26,4 +26,8 @@ module QuestionsHelper
     categorylist
   end
 
+  def editable_element
+    return true unless @version.editable?
+    @version.published
+  end
 end

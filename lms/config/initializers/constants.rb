@@ -20,3 +20,23 @@ RESOURCE_TYPES = [
   'Quote',
   'Note',
 ]
+
+
+MAX_MULTIPLE_MATCH = 10
+
+MIN_MULTIPLE_MATCH = 1
+
+MAX_QUESTION_OPTION = 14
+
+MIN_QUESTION_OPTION = 3
+
+
+DESCRIPTIVE_QUESTION_TYPE = ['match_the_pairs',
+                  'multiple_matching',
+                  'descriptive']
+
+OBJECTIVE_QUESTION_TYPE = ['single_answer',
+                  'single_visual',
+                  'multiple_answers',
+                  'multiple_visuals',
+                  'true_or_false']

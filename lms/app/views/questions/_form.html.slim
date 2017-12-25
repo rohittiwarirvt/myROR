@@ -13,3 +13,122 @@
   .form-group.question-type
     = f.label('', localize('form.question_type'), class: 'mandatory')
     = f.collection_select :question_category_id, category_list(@questioncategories), :first, :last, {prompt: localize('form.select_category')}, {class: 'form-control required question-category-list'}
+    = f.hidden_field 'max_multiple_match', disabled: 'disabled', value: "#{MAX_MULTIPLE_MATCH}"
+    = f.hidden_field 'min_multiple_match', disabled: 'disabled', value: "#{MIN_MULTIPLE_MATCH}"
+    = f.hidden_field 'max_option', disabled: 'disabled', value: "#{MAX_QUESTION_OPTION}", data: {message: localize('form.max_message')}
+    = f.hidden_field 'min_option', disabled: 'disabled', value: "#{MIN_QUESTION_OPTION}"
+  .form-group.answer-option-label
+    = f.label('', localize('form.answer_option'), class: 'mandatory')
+  span.correct-message.error
+
+  .form-group.answer-3.answer-type.single-option
+    - 2.times do |index|
+      = f.fields_for :answers do |answer_form|
+        .form-group
+          span.caption
+            = f.label('', localize('form.option'))
+          .input-field
+            - value = localize('form.option_false')
+          .input-field
+            - value = localize('form.option_true') if index == 0
+            - checked = 'checked' if index == 0
+          .input-field
+            = answer_form.text_field 'option', value: value, disabled: 'disabled'
+          .input-field
+            = answer_form.radio_button 'correct_answer', '1', disabled: 'disabled', class: 'single-check correct-option', checked: checked
+            = answer_form.label :correct_answer, localize('form.correct_text'), value: 1, class: 'caption'
+          .clearfix
+    = link_to localize('form.add_more'), 'javascript:void(0)', class: 'add-option-fields'
+
+  .form-group.answer-8.answer-type
+    = f.fields_for :answers do |answer_form|
+      span.caption
+        = localize('form.number_of_inputs' )
+      .input-field
+        = answer_form.text_field 'option', disabled: 'disabled', data: {numericError: localize('form.numeric_error' )}, id: 'descriptive_numeric', class: 'numeric'
+  .form-group.answer-4.answer-type
+    - 2.times do |index|
+      = f.fields_for :answers do |answer_form|
+        .form-group*{class: "row-#{answer_form.index}", data: {index: answer_form.index}}
+          span.caption
+            = f.label('', localize('form.option'))
+          .input-field.upload-file-field
+            = answer_form.file_field 'image', disabled: 'disabled', class: 'custom-file-upload'
+          .input-field
+            - checked = 'checked' if index == 0
+            = answer_form.radio_button 'correct_answer', '1', disabled: 'disabled', class: 'single-check correct-option', checked: checked
+            = answer_form.label :correct_answer, localize('form.correct_text'), value: 1, class: 'caption'
+          .input-field
+            = link_to '-', 'javascript:void(0)', class: 'delete-answer btn btn-primary',  data: {index: answer_form.index, delete: localize('form.delete_error')}
+    = link_to localize('form.add_more'), 'javascript:void(0)', class: 'add-option-fields'
+
+  .form-group.answer-5.answer-type
+    - 2.times do |index|
+      = f.fields_for :answers do |answer_form|
+        div.form-group*{class: "row-#{answer_form.index}" , data: {index: answer_form.index}}
+          span.caption
+            = f.label('', localize('form.option'))
+          .input-field.upload-file-field
+            = answer_form.file_field 'image', disabled: 'disabled', class: 'custom-file-upload'
+          .input-field
+            = answer_form.check_box 'correct_answer', include_hidden: false, disabled: 'disabled', class: 'correct-option', class: 'correct-option'
+            = answer_form.label :correct_answer, localize('form.correct_text'), class: 'caption'
+          .input-field
+            = link_to '-', 'javascript:void(0)', class: 'delete-answer btn btn-primary', data: {index: answer_form.index, delete: localize('form.delete_error')}
+    = link_to localize('form.add_more'), 'javascript:void(0)', class: 'add-option-fields'
+  .form-group.answer-6.answer-type
+    - 2.times do |index|
+      = f.fields_for "match[#{index}]".to_sym do |match_form|
+        div.form-group*{class: "row-#{index}", data: {index: index}}
+          span.caption
+            = localize('form.option' )
+          .input-field
+            = match_form.text_field 'left_option', disabled: 'disabled'
+          .input-field
+            = match_form.text_field 'right_option', disabled: 'disabled', class: 'match-pair', data: {option: index}
+          .input-field
+            = match_form.hidden_field 'option', disabled: 'disabled'
+          .input-field
+            = link_to '-', 'javascript:void(0)', class: 'delete-answer btn btn-primary', data: {index: index, delete: localize('form.delete_error')}
+          .clearfix
+    = link_to localize('form.add_more'), 'javascript:void(0)', class: 'add-option-match-pair'
+
+  .form-group.answer-7.answer-type
+    - 2.times do |index|
+      .largeText*{data: {index: index}}
+        = f.fields_for "multiple[#{index}]".to_sym do |match_form|
+          .form-group*{class: "row-#{index}" , data: {index: index}}
+            span.caption
+              = localize('form.option' )
+            .input-field
+              = match_form.text_field 'left_option', disabled: 'disabled'
+            .input-field.right-field
+              = match_form.text_field "right_[#{index}]".to_sym, disabled: 'disabled', class: 'multiple-match', data: {option: index}
+              .input-field.manipulate-option.pull-left
+                = link_to '+', 'javascript:void(0)', class: 'add-multiple-match btn btn-primary', data: {rightIndex: index, maxLimit: localize('form.error_message')}
+                = match_form.hidden_field 'option', disabled: 'disabled'
+                = link_to '-', 'javascript:void(0)', class: 'multiple-match-delete-answer btn btn-primary', data: {rightIndex: index, delete: localize('form.match_delete_error')}
+            .input-field
+              - unless editable_element
+                = link_to '-', 'javascript:void(0)', class: 'new-multiple-match-delete-answer btn btn-primary', disabled: editable_element, data: { index: match_form.index, delete: localize('form.delete_error') }
+
+            .clearfix
+    = link_to localize('form.add_more'), 'javascript:void(0)', class: 'add-option-multiple-match'
+  .form-group.answer-9.answer-type.sorting-option
+    - 2.times do |index|
+      = f.fields_for "sort[#{index}]".to_sym do |sort_form|
+        .fields
+          .form-group*{class: "row-#{index}" , data: {index: index}}
+            span.caption
+              = index + 1
+              = sort_form.hidden_field 'sequence', disabled: 'disabled', value: index + 1
+            .input-field
+              = sort_form.text_field 'sort', disabled: 'disabled', class: 'sorting', data: {option: index}
+              = sort_form.hidden_field 'option', disabled: 'disabled'
+            .input-field
+              = link_to '-', 'javascript:void(0)', class: 'sorting-delete-answer btn btn-primary', data: {index: index, delete: localize('form.delete_error')}
+            .clearfix
+    = link_to localize('form.add_more'), 'javascript:void(0)', class: 'add-option-fields'
+  .actions
+    = f.submit(localize('form.submit'),class:'btn btn-primary submit_form', data: { message: localize('form.fields_required'), correct: localize('form.correct_message'), multiplecorrect: localize('form.multiple_correct_message')})
+    = link_to localize('form.cancel'), assessment_questions_path(params[:assessment_id])
