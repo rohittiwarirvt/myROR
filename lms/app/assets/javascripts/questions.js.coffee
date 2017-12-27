@@ -35,3 +35,7 @@ $ ->
       url: url
       success: (data, status) =>
         data
+  # disable options of question category
+  removeOption = [6, 7, 8, 9]
+  for key,value of removeOption
+    $(".question-category-list option[value=#{value}]").hide()
