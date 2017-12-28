@@ -39,3 +39,11 @@ $ ->
   removeOption = [6, 7, 8, 9]
   for key,value of removeOption
     $(".question-category-list option[value=#{value}]").hide()
+
+
+  tinymce.init
+    selector: 'textarea.tinymce'
+    plugins: [
+      'textcolor colorpicker'
+    ]
+    toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor '
