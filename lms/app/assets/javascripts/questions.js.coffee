@@ -47,3 +47,7 @@ $ ->
       'textcolor colorpicker'
     ]
     toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor '
+
+  # select the correct answer
+  $('.answer-type').on 'click', '.single-check', ->
+    $('.single-check').not(@).prop('checked', false)
