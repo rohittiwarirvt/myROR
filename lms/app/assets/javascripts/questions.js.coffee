@@ -36,7 +36,7 @@ $ ->
       success: (data, status) =>
         data
   # disable options of question category
-  removeOption = [6, 7, 8, 9]
+  removeOption = [1, 2, 8, 4]
   for key,value of removeOption
     $(".question-category-list option[value=#{value}]").hide()
 
@@ -51,3 +51,28 @@ $ ->
   # select the correct answer
   $('.answer-type').on 'click', '.single-check', ->
     $('.single-check').not(@).prop('checked', false)
+
+  # show respective answer type questions
+  if question_type?
+    $('.answer-type').hide()
+    editable = $('#correct_answer_option_').data('disabled')
+    $('.answer-type').find('input').attr('disabled', 'disabled')
+    $(".answer-#{question_type}").show()
+    $(".answer-#{question_type} input[type=text]").addClass('required');
+    if editable is false
+      $(".answer-#{question_type}").find('input').removeAttr('disabled')
+    else if editable is true
+      $(".answer-#{question_type}").find('input[type=text]').removeAttr('disabled')
+      $(".answer-#{question_type}").find('input[type=hidden]').removeAttr('disabled')
+
+  $('#question_question_category_id').on 'change', ->
+    previous_option = $(@).data('prev')
+    $(".answer-#{previous_option}").find('input').attr('disabled', 'disabled')
+    $('.correct-message').empty()
+    $('.answer-type').hide()
+    $(".answer-#{$(@).val()}").show().find('input').removeAttr('disabled')
+    $(".answer-#{$(@).val()} input[type=text]").addClass('required');
+    $(".answer-#{$(@).val()} input[type=file]").addClass('required');
+    if question_type?
+      $(".answer-#{question_type}").find('input').val('')
+    $(@).data('prev', $(@).val())
