@@ -1,0 +1,129 @@
+label.mandatory:after, span.mandatory:after {
+     content: '*';
+     color: #FF0000;
+     display: inline-block;
+     float: right;
+     font-weight: normal;
+     font-size: 16px;
+     margin: 2px 0 0 2px;
+}
+ .image-ans {
+     display: inline-block;
+     position: relative;
+     width: 150px;
+     margin: 5px 0;
+     img {
+         width: 100%;
+    }
+}
+ .new_question, .edit_question {
+     input[type='text'] {
+         border-radius: 3px;
+         border: 1px solid #ccc;
+         height: 34px;
+         padding: 6px 12px;
+    }
+     input.error {
+         font-size: 14px;
+         color: #333;
+         display: inline-block;
+    }
+     .question-type{
+        width: 50%;
+        margin-bottom: 20px;
+      }
+     .answer-option-label{
+         margin-bottom: 0;
+    }
+     h5{
+         margin-bottom: 15px;
+    }
+     .answer-type{
+         .fields{
+             margin-bottom: 10px;
+             background: #f1f1f1;
+             padding: 10px;
+             overflow: hidden;
+        }
+         .form-group{
+             margin-bottom: 0;
+        }
+         .btn-primary{
+             margin: 0 5px;
+             padding: 0 6px;
+             font-size: 16px;
+             line-height: 20px;
+             height: 20px;
+        }
+         span.caption{
+             float: left;
+        }
+         .btn{
+             margin-top: 6px;
+        }
+         .input-field{
+             margin-left: 10px;
+             float: left;
+        }
+         .caption{
+             margin-top: 8px;
+        }
+         input[type='checkbox'], input[type='radio']{
+             margin: 10px 8px 0 2px;
+             float: left;
+        }
+    }
+     .answer-5, .answer-4{
+         .caption{
+             margin: 2px 8px 0 0;
+        }
+         input[type='checkbox']{
+             margin-top: 4px;
+        }
+         input[type='file']{
+             display: inline-block;
+        }
+         .btn {
+          margin-top: 0;}
+    }
+     .answer-3, .answer-2, .answer-4.answer-type{
+         .single-check{
+             margin-top: 4px;
+        }
+    }
+     .answer-6, .answer-7{
+         .form-group{
+             margin-bottom: 15px;
+        }
+    }
+     .answer-7{
+         .add-multiple-match{
+             margin-right: 0;
+        }
+         .multiple-match-delete-answer{
+             margin-left: 5px;
+             line-height: 17px;
+        }
+         .form-group{
+             width: 70%;
+             .right-field{
+                 width: 195px;
+                 input:nth-child(n+2){
+                     margin-top: 10px;
+                }
+            }
+        }
+    }
+     .numeric{
+         width: 80px;
+    }
+}
+ .edit_question{
+     .answer-6, .answer-7 {
+         .fields{
+             margin-bottom: 0;
+             background: none;
+             padding: 0;
+        }
+    }
+}
