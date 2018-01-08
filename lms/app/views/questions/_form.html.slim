@@ -21,7 +21,7 @@
     = f.label('', localize('form.answer_option'), class: 'mandatory')
   span.correct-message.error
 
-  .form-group.answer-3.answer-type.single-option
+  .form-group.answer-9.answer-type.single-option
     - 2.times do |index|
       = f.fields_for :answers do |answer_form|
         .form-group
@@ -40,13 +40,45 @@
           .clearfix
     = link_to localize('form.add_more'), 'javascript:void(0)', class: 'add-option-fields'
 
-  .form-group.answer-8.answer-type
+  .form-group.answer-2.answer-type.single-option
+    - 2.times do |index|
+      = f.fields_for :answers do |answer_form|
+        div.form-group*{class: "row-#{answer_form.index}" , data: {index: answer_form.index}}
+          span.caption
+            = f.label('', localize('form.option'))
+          .input-field
+            = answer_form.text_field 'option', disabled: 'disabled'
+          .input-field
+            - checked = 'checked' if index == 0
+            = answer_form.radio_button 'correct_answer', '1', disabled: 'disabled', class: 'single-check correct-option', checked: checked
+            = answer_form.label :correct_answer, localize('form.correct_text'), value: 1, class: 'caption'
+          .input-field
+            = link_to '-', 'javascript:void(0)', class: 'delete-answer btn btn-primary', data: {index: answer_form.index, delete: localize('form.delete_error')}
+          .clearfix
+    = link_to localize('form.add_more'), 'javascript:void(0)', class: 'add-option-fields'
+
+  .form-group.answer-3.answer-type
+    - 2.times do |index|
+      = f.fields_for :answers do |answer_form|
+        div.form-group*{class: "row-#{answer_form.index}" , data: {index: answer_form.index}}
+          span.caption
+            = f.label('', localize('form.option'))
+          .input-field
+            = answer_form.text_field 'option', disabled: 'disabled'
+          .input-field
+            = answer_form.check_box 'correct_answer', include_hidden: false, disabled: 'disabled', class: 'correct-option'
+            = answer_form.label :correct_answer, localize('form.correct_text'), class: 'caption'
+          .input-field
+            = link_to '-', 'javascript:void(0)', class: 'delete-answer btn btn-primary', data: {index: answer_form.index, delete: localize('form.delete_error')}
+          .clearfix
+    = link_to localize('form.add_more'), 'javascript:void(0)', class: 'add-option-fields'
+  .form-group.answer-1.answer-type
     = f.fields_for :answers do |answer_form|
       span.caption
         = localize('form.number_of_inputs' )
       .input-field
         = answer_form.text_field 'option', disabled: 'disabled', data: {numericError: localize('form.numeric_error' )}, id: 'descriptive_numeric', class: 'numeric'
-  .form-group.answer-4.answer-type
+  .form-group.answer-7.answer-type
     - 2.times do |index|
       = f.fields_for :answers do |answer_form|
         .form-group*{class: "row-#{answer_form.index}", data: {index: answer_form.index}}
@@ -93,7 +125,7 @@
           .clearfix
     = link_to localize('form.add_more'), 'javascript:void(0)', class: 'add-option-match-pair'
 
-  .form-group.answer-7.answer-type
+  .form-group.answer-4.answer-type
     - 2.times do |index|
       .largeText*{data: {index: index}}
         = f.fields_for "multiple[#{index}]".to_sym do |match_form|
@@ -114,7 +146,7 @@
 
             .clearfix
     = link_to localize('form.add_more'), 'javascript:void(0)', class: 'add-option-multiple-match'
-  .form-group.answer-9.answer-type.sorting-option
+  .form-group.answer-8.answer-type.sorting-option
     - 2.times do |index|
       = f.fields_for "sort[#{index}]".to_sym do |sort_form|
         .fields

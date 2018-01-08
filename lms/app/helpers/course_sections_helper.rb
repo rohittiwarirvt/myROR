@@ -43,6 +43,7 @@ module CourseSectionsHelper
 
   def content_path(section, content)
     return edit_slide_path(section) if content.eql?(CourseSection::CONTENT_TYPES[:presentation])
+    content
   end
 
   def content_class(section)
