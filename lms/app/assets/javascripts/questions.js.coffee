@@ -264,7 +264,7 @@ $ ->
       $.ajax(
         type: 'put'
         dataType: 'json'
-        url: Routes.course_creation_assessment_question_update_position_path(assessment_id, id)
+        url: Routes.assessment_question_update_position_path(assessment_id, id)
         data: { question: { question_order_position: position } }
       )
       total = $('.sr-no').length
@@ -331,3 +331,32 @@ $ ->
     newElement = $.parseHTML("<div class='largeText' data-index='#{index + 1}'><div class='form-group row-#{index + 1}' data-index='#{index + 1}'>#{addElement}</div></div>")
     $(newElement).find('input[type=text]').val('')
     $(@).before(newElement)
+
+  # delete multiple match option
+  $('.answer-type').on 'click', '.multiple-match-delete-answer', ->
+    index = $(@).attr('data-index')
+    if($(@).closest('.right-field').find('input[type=text]').size() <= $('#question_min_multiple_match').val())
+      alert($(@).attr('data-delete'))
+      return false
+    $(@).parent().prev('input[type=text]').remove()
+
+
+  # delete option for sorting
+  $('.answer-type').on 'click', '.sorting-delete-answer', ->
+    answerClass(this)
+    if($(".row-#{lms.index}").parent().parent('.sorting-option').children('.fields').size() < $('#question_min_option').val())
+      alert($(@).attr('data-delete'))
+      return false
+    else if ($('.edit_question').length) && lms.answerId && ($(".#{lms.questionTypeClass} .fields > input").length >= $('#question_min_option').val())
+      deleteAnswerInDb(this)
+    else if ($('.edit_question').length) && lms.answerId && ($(".#{lms.questionTypeClass} .fields > input").length < $('#question_min_option').val())
+      alert($('.submit_form').attr('data-conditional-delete'))
+      return false
+    $(".sorting-option .row-#{lms.index}").parents('.fields').remove()
+  # checked value the correct answer
+  $('.answer-type').on 'change', '.single-check', ->
+    if $(@).is(':checked')
+      $(@).parent().parent().parent().parent('.single-option').find('.correct-hidden').val('0')
+      $(".option-#{$(@).data('option')}").val('1')
+    else
+      $(".option-#{$(@).data('option')}").val('0')
