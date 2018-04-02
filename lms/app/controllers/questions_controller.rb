@@ -26,6 +26,12 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def edit
+    @questioncategories = QuestionCategory.order(:name)
+    @answer = @question.answers
+    @version = @assessment.course_section.version
+  end
+
   def assessment_information
     @assessment = Assessment.includes(:course_section).find_by_id(params[:assessment_id])
     @version = @assessment.course_section.version

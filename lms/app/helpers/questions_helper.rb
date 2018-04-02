@@ -30,4 +30,10 @@ module QuestionsHelper
     return true unless @version.editable?
     @version.published
   end
+
+  def format_option(option)
+    option_value = parse_json(option)
+    return option unless option_value.present?
+    "#{option_value.keys.first} : #{option_value.values.join(',')}"
+  end
 end

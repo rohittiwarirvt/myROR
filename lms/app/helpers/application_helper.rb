@@ -11,4 +11,10 @@ module ApplicationHelper
   def current_year
     Time.new.year
   end
+
+  def parse_json(option)
+    JSON.parse(option)
+  rescue
+    false
+  end
 end
